@@ -1,11 +1,10 @@
-=== Aanmeld Formulier ===
-Contributors: papin
+=== Companion Forms ===
+Contributors: Papin
 Requires at least: 3.0
-Stable tag: 1.6
 Tested up to: 4.1
 
-Aanmeld formulier speciaal gemaakt voor Call Profit, versie 1 ondersteund nog geen customisatie
-
 == Description ==
+Companion Forms is a simple plugin which allows you to make forms using multi-steps/pages
 
-Aanmeld formulier speciaal gemaakt voor Call Profit, versie 1 ondersteund nog geen customisatie
+== How to Install ==
+You know the drill... jk.. still need to write this
