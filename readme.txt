@@ -1,10 +1,9 @@
-=== Aanmeld Formulier ===
+=== Companion Forms ===
 Contributors: Papin
 Tested on: Wordpress 4.1
 
-Aanmeld formulier speciaal gemaakt voor Call Profit, versie 1 ondersteund nog geen customisatie
+Companion Forms is a simple multi step/page contact form
 
 == Description ==
 
-Aangezien ik geen goede (gratis) plugin kon vinden die deed wat ik wou, besloot ik er zelf een te maken.
-Deze plugin maakt een (aanmeld)formulier met meerdere stappen.
+I couldn't find any good (free) contact form with multi steps/pages so that's why I've decided to make my own :D
