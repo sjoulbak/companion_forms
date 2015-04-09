@@ -1,6 +1,6 @@
 === Companion Forms ===
 Contributors: Papin
-Requires at least: 3.0
+Requires at least: 3.5
 Tested up to: 4.1
 
 == Description ==

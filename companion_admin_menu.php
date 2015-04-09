@@ -15,16 +15,20 @@ $pages = array(
 );
 ?>
 
-<a href="https://github.com/DakelNL/companion_forms" target="_blank" style="position: fixed; right: 25px; top: 50px;">Help developing this plugin on GitHub :)</a>
-
-<h2><?php _e( 'Edit', 'textdomain' ) ?>  Companion Forms <!--<a href="?page=companion_forms_settings&c_form=new" class="add-new-h2">Add New</a>--></h2>
-<p>Working on it...</p>
+<p style="position: fixed; right: 25px; top: 40px;">
+	<a href="http://dakeldesigns.nl" target="_blank">More Plugins/Themes</a> | <a href="https://github.com/DakelNL/companion_forms" target="_blank">GitHub Page :)</a>
+</p>
+<script>
+function copyToClipboard(text) {
+  window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+}
+</script>
+<h2><?php _e( 'Edit', 'textdomain' ) ?>  Companion Forms <a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
 
 <!-- Add New Step -->
 <h3><?php _e( 'Add Step', 'textdomain' ) ?></h3>
 
 <?php if(isset($_POST['submit'])) {
-	array_push($pages, "apple", "raspberry");
 	echo "Succes";
 } ?>
 
@@ -35,7 +39,7 @@ $pages = array(
 	<input type="text" placeholder="<?php _e( 'Title', 'textdomain' ) ?>"><br>
 	<i style="color: #424242;">The step title (e.g. Step 1 or Personal Info)</i><br><br>
 	<input type="text" placeholder="<?php _e( 'Content', 'textdomain' ) ?>"><br>
-	<i style="color: #424242;">Use another plugin to make the forms</i><br><br>
+	<i style="color: #424242;">Still thinking on how I'm going to do this</i><br><br>
 
 	<?php submit_button(); ?>
 </form>
@@ -48,9 +52,3 @@ $pages = array(
 foreach ($pages as $key => $value) {
 	echo"<li>".$key.". ".$value." <a href=''>Edit</a> | <a href=''>Delete</a></li>";
 } ?>
-
-<!-- Show Shortcode -->
-<hr>
-<h3><?php _e( 'Shortcode', 'textdomain' ) ?></h3>
-<b>Shortcode:</b> [companionformulier]<br>
-<i>De shortcode werkt momenteel nog maar met 1 formulier...</i>

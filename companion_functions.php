@@ -3,58 +3,38 @@
 	Companion Forms Functions File
 	All functions used by this plugin are located here
 */
- 
-// function to create the DB / Options / Defaults					
-global $c_forms_version;
-$c_forms_version = '0.0.2';
 
-function c_forms_install() {
+// Create datbase table
+global $cforms_db_version;
+$cforms_db_version = '1.0';
+
+function cforms_install(){
 	global $wpdb;
-	global $jal_db_version;
 
-	$table_name = $wpdb->prefix . 'companionforms';
-	
 	$charset_collate = $wpdb->get_charset_collate();
 
+	$table_name = $wpdb->prefix . 'cforms';
+
 	$sql = "CREATE TABLE $table_name (
-		id mediumint(9) NOT NULL AUTO_INCREMENT,
-		title varchar(255),
-		content varchar(255),
+		id int(6) NOT NULL AUTO_INCREMENT,
+		title varchar(255) NOT NULL,
+		content varchar(255) DEFAULT '' NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 
-	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-	dbDelta( $sql );
-
-	add_option( 'c_forms_version', $c_forms_version );
+	add_option( 'cforms_db_version', $cforms_db_version );
 }
 
-function c_forms_install_data() {
-	global $wpdb;
-	
-	$welcome_name = 'Mr. WordPress';
-	$welcome_text = 'Congratulations, you just completed the installation!';
-	
-	$table_name = $wpdb->prefix . 'companionforms';
-	
-	$wpdb->insert( 
-		$table_name, 
-		array( 
-			'time' => current_time( 'mysql' ), 
-			'name' => $welcome_name, 
-			'text' => $welcome_text, 
-		) 
-	);
-}
+require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
+dbDelta( $sql );
 
-register_activation_hook( __FILE__, 'c_forms_install' );
-register_activation_hook( __FILE__, 'c_forms_install_data' );
+register_activation_hook( __FILE__, 'cforms_install' );
 
 // Now we set that function up to execute
 add_option( 'companion_forms' );
 
 // Add a shortcode
-add_shortcode( 'companionformulier' , 'companion_forms' );
+add_shortcode( 'companionform' , 'companion_forms' );
 
 
 //Add plugin to menu
