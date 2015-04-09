@@ -22,11 +22,11 @@ function cforms_install(){
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
+	dbDelta( $sql );
+	
 	add_option( 'cforms_db_version', $cforms_db_version );
 }
-
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
-dbDelta( $sql );
 
 register_activation_hook( __FILE__, 'cforms_install' );
 
