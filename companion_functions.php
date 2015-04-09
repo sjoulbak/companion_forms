@@ -38,11 +38,9 @@ function cforms_steps() {
 
 	$sqlcforms = mysql_query("SELECT * FROM $table_name")or die(mysql_error());
 
-	echo "<ol class='boxed_list'>";
+	echo "<ol>";
 	while($rescforms = mysql_fetch_assoc($sqlcforms)) {
-		echo'<li><b>'.$rescforms['title'].'</b><br>
-		<a href="options-general.php?page=companion_forms_settings&editcform='.$rescforms['id'].'">Edit</a> | 
-		<a href="options-general.php?page=companion_forms_settings&deletecform='.$rescforms['id'].'">Delete</a></li><br>';
+		echo'<li>'.$rescforms['title'].' <a href="options-general.php?page=companion_forms_settings&editcform='.$rescforms['id'].'">Edit</a> | <a href="options-general.php?page=companion_forms_settings&deletecform='.$rescforms['id'].'">Delete</a></li>';
 	}
 	echo "</ol>";
 
