@@ -5,15 +5,6 @@
 	Ideas:
 	use contact form 7 to create the forms?
 -->
-<?php 
-$pages = array(
-	1 => 'Klantgegevens',
-	2 => 'Betalingsgegevens',
-	3 => 'VOiP Gegevens',
-	4 => 'Uw Situatie/Wensen',
-	5 => 'Overzicht/Verzenden',
-);
-?>
 
 <p style="position: fixed; right: 25px; top: 40px;">
 	<a href="http://dakeldesigns.nl" target="_blank">More Plugins/Themes</a> | <a href="https://github.com/DakelNL/companion_forms" target="_blank">GitHub Page :)</a>
