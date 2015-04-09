@@ -5,7 +5,6 @@
 	Ideas:
 	use contact form 7 to create the forms?
 -->
-
 <p style="position: fixed; right: 25px; top: 40px;">
 	<a href="http://dakeldesigns.nl" target="_blank">More Plugins/Themes</a> | <a href="https://github.com/DakelNL/companion_forms" target="_blank">GitHub Page :)</a>
 </p>
@@ -17,7 +16,8 @@ function copyToClipboard(text) {
 
 
 <?php if (isset($_GET['addnew'])) { ?>
-	<h2><?php _e( 'Add', 'textdomain' ) ?>  Companion Forms <a href="options-general.php?page=companion_forms_settings" class="add-new-h2">Edit</a> <a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
+	<h2><?php _e( 'Add', 'textdomain' ) ?>  Companion Forms 
+	<a href="options-general.php?page=companion_forms_settings" class="add-new-h2">Edit</a> <a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
 	<hr>
 	<!-- Add New Step -->
 	<h3><?php _e( 'Add Step', 'textdomain' ) ?></h3>
@@ -49,7 +49,8 @@ function copyToClipboard(text) {
 
 <? } else { ?>
 
-<h2><?php _e( 'Edit', 'textdomain' ) ?>  Companion Forms <a href="<?php echo $_SERVER['REQUEST_URI'];?>&addnew" class="add-new-h2">Add New</a> <a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
+<h2><?php _e( 'Edit', 'textdomain' ) ?>  Companion Forms 
+<a href="<?php echo $_SERVER['REQUEST_URI'];?>&addnew" class="add-new-h2">Add New Step</a> <a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
 
 <!-- Show Created Step -->
 <hr>
