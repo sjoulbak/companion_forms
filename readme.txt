@@ -1,9 +1,11 @@
-=== Companion Forms ===
-Contributors: Papin
-Tested on: Wordpress 4.1
+=== Aanmeld Formulier ===
+Contributors: papin
+Requires at least: 3.0
+Stable tag: 1.6
+Tested up to: 4.1
 
-Companion Forms is a simple multi step/page contact form
+Aanmeld formulier speciaal gemaakt voor Call Profit, versie 1 ondersteund nog geen customisatie
 
 == Description ==
 
-I couldn't find any good (free) contact form with multi steps/pages so that's why I've decided to make my own :D
+Aanmeld formulier speciaal gemaakt voor Call Profit, versie 1 ondersteund nog geen customisatie

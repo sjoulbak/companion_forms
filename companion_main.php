@@ -2,13 +2,13 @@
 /*
 	Plugin Name: Companion Forms
 	Plugin URI: http://callprofit.nl
-	Description: Create a multi page form and add it to any page using shortcodes
+	Description: Create a multi page form and add it to any page using shortcodes.
 	Author: Service ICT, Papin
 	Version: 0.0.2
 	Author URI: http://service-ict.nl
 	License: GPL2
 */
-	
+
 /* 
 	Comapion Forms Main Plugin File
 	This is the page that shows the plugin on the website
