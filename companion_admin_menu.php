@@ -17,7 +17,9 @@ function copyToClipboard(text) {
 
 <?php if (isset($_GET['addnew'])) { ?>
 	<h2><?php _e( 'Add', 'textdomain' ) ?>  Companion Forms 
-	<a href="options-general.php?page=companion_forms_settings" class="add-new-h2">Edit</a> <a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
+	<a href="options-general.php?page=companion_forms_settings" class="add-new-h2">Main Page</a> 
+	<a href="options-general.php?page=companion_forms_settings&settings=all" class="add-new-h2">Settings</a> 
+	<a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
 	<hr>
 	<!-- Add New Step -->
 	<h3><?php _e( 'Add Step', 'textdomain' ) ?></h3>
@@ -47,15 +49,26 @@ function copyToClipboard(text) {
 		<?php submit_button(); ?>
 	</form>
 
-<? } else { ?>
+<?php } elseif (isset($_GET['settings'])) { ?>
 
-<h2><?php _e( 'Edit', 'textdomain' ) ?>  Companion Forms 
-<a href="<?php echo $_SERVER['REQUEST_URI'];?>&addnew" class="add-new-h2">Add New Step</a> <a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
+	<h2>Companion Forms <?php _e( 'Settings', 'textdomain' ) ?>  
+	<a href="options-general.php?page=companion_forms_settings" class="add-new-h2">Main Page</a> 
+	<a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
+	<hr>
+	<p>This.. this right here, this is where eventually some settings will end up..</p>
+	<p>e.g. show/hide step counter, show/hide tab title/number etc. etc.</p>
 
-<!-- Show Created Step -->
-<hr>
-<h3><?php _e( 'Created Steps', 'textdomain' ) ?></h3>
+<?php } else { ?>
 
-<?php cforms_steps() ?>
+	<h2><?php _e( 'Edit', 'textdomain' ) ?>  Companion Forms 
+	<a href="<?php echo $_SERVER['REQUEST_URI'];?>&addnew" class="add-new-h2">Add New Step</a>
+	<a href="options-general.php?page=companion_forms_settings&settings=all" class="add-new-h2">Settings</a>  
+	<a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
+
+	<!-- Show Created Step -->
+	<hr>
+	<h3><?php _e( 'Created Steps', 'textdomain' ) ?></h3>
+
+	<?php cforms_steps() ?>
 
 <? } ?>
