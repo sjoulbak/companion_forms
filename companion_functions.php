@@ -42,6 +42,8 @@ function cforms_steps() {
 	}
 	cforms_edit_step( $_GET['editcform'] );
 }
+
+//Edit steps
 function cforms_edit_step($id) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'cforms';
@@ -50,8 +52,14 @@ function cforms_edit_step($id) {
 
 	if (isset($_GET['editcform'])) {
 		echo"<hr>";
-		echo"<h3>Edit ".$rescforms['title']." (step: ".$id.")</h3>";
-	   	echo $rescforms['content'];
+		echo"<h3>Edit <i>".$rescforms['title']."</i> (step: ".$id.")</h3>";
+
+		echo"<form method='post' action='".$_SERVER['REQUEST_URI']."'>";
+
+	   		echo"<input type='text' value='".$rescforms['content']."'>";
+	   		echo submit_button();
+
+	   	echo"</form>";
 	}
 }
 // Deletes steps
