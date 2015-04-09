@@ -19,8 +19,6 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 // The Main function that displays the form
 function companion_forms() { ?>
 
-
-
 	<style>
 		ul.top_page_navigation {
 			background: #F5F5F5;
@@ -72,163 +70,46 @@ function companion_forms() { ?>
 	</script>
 
 		<ul class="tabs top_page_navigation" data-persist="true">
-            <?php 
-			$pages = array(
-				1 => 'Klantgegevens',
-				2 => 'Betalingsgegevens',
-				3 => 'VOiP Gegevens',
-				4 => 'Uw Situatie/Wensen',
-				5 => 'Overzicht/Verzenden',
-			);
-			foreach ($pages as $key => $value) {
-				echo"<li><a href='#".$key."'>".$key.". ".$value."</a></li>";
-			}
-			?>
+			<?php  global $wpdb;
+			$table_name = $wpdb->prefix . 'cforms';
+
+			$sqlcforms = mysql_query("SELECT * FROM $table_name")or die(mysql_error());
+
+			global $key;
+			$key = 0;
+
+			global $keylast;
+			$keylast = 0;
+
+			while($rescforms = mysql_fetch_assoc($sqlcforms)) {
+				$key++;
+				$keylast++;
+				echo"<li><a href='#".$rescforms['id']."'>".$key.". ".$rescforms['title']."</a></li>";
+
+			} ?>
         </ul>
 
         <div class="tabcontents">
-        <?php foreach ($pages as $key => $value) { ?>
-            <div id="<?php echo $key; ?>">
-            	<div class="inner_tabcontent">
-            		<?php echo $value; ?> <!-- Just to make sure the navigation still works-->
+        <?php 
+        global $wpdb;
+		$table_name = $wpdb->prefix . 'cforms';
 
-	                <form method="post" name="aanmelden_1" action="/aanmelden/voip/stap_1.html">
-					<div class="aanmelden_blok">
-						<h3>Klantgegevens aanvrager</h3>
+		$sqlcforms = mysql_query("SELECT * FROM $table_name")or die(mysql_error());
 
-						<div class="half">
-							<table cellpadding="0" cellspacing="0">
-								<tr>
-									<td style="width:141px;">Bedrijf:</td>
-									<td><input type="text" name="aanmeldbedrijf" value="" /></td>
-								</tr>
-								<tr>
-									<td>Aanhef:</td>
-									<td><input type="text" name="aanmeldaanhef" value="" /></td>
-								</tr>
-								<tr>
-									<td>Naam:</td>
-									<td><input type="text" name="aanmeldnaam" value="" /></td>
-								</tr>
-								<tr>
-									<td>Adres + Huisnummer:</td>
-									<td><input type="text" name="aanmeldadres" value="" style="width:174px;" /> <input type="text" name="aanmeldhuisnr" value="" style="width:28px;" /></td>
-								</tr>
-								<tr>
-									<td>Postcode:</td>
-									<td><input type="text" name="aanmeldpostc" value="" /></td>
-								</tr>
-								<tr>
-									<td>Woonplaats:</td>
-									<td><input type="text" name="aanmeldplaats" value="" /></td>
-								</tr>
-							</table>
-						</div>
+		global $key;
+		$key = 0;
 
-						<div class="half">
-							<table cellpadding="0" cellspacing="0">
-								<tr>
-									<td style="width:141px;">Fax:</td>
-									<td><input type="text" name="aanmeldfax" value="" /></td>
-								</tr>
-								<tr>
-									<td>Telefoon:</td>
-									<td><input type="text" name="aanmeldtelnr" value="" /></td>
-								</tr>
-								<tr>
-									<td>E-mail:</td>
-									<td><input type="text" name="aanmeldemail" value="" /></td>
-								</tr>
-								<tr>
-									<td>KvK nummer:</td>
-									<td><input type="text" name="aanmeldkvknr" value="" /></td>
-								</tr>
-								<tr>
-									<td>BTW nummer</td>
-									<td><input type="text" name="aanmeldbtwnr" value="" /></td>
-								</tr>
-								<tr>
-									<td>Ligitimatienummer</td>
-									<td><input type="text" name="aanmeldliginr" value="" /></td>
-								</tr>
-							</table>
-						</div>
+        while($rescforms = mysql_fetch_assoc($sqlcforms)) {
+        	$key++;
+            echo"<div id='".$rescforms['id']."'>
+            	<div class='inner_tabcontent'>
 
-						<div style="clear:both;"></div>
+            		".$rescforms['content']."
 
-					</div>
-
-					<div class="aanmelden_blok">
-						<h3>Factuuradres aanvrager</h3>
-						<input type="checkbox" name="aanmeldfactuurels" value="1" class="checkbox" id="aanmelden_factuuradres" /> Factuuradres wijkt af van bovenstaande adresgegevens<br />
-						<div class="left" id="aanmelden_factuuradres_afwijk" style="display:none;">
-							<table cellpadding="0" cellspacing="0">
-								<tr>
-									<td style="width:141px;">Adres + Huisnummer:</td>
-									<td><input type="text" name="aanmeldfactuurelsadres" value="" style="width:174px;" /> <input type="text" name="aanmeldfactuurelshuisnr" value="" style="width:28px;" /></td>
-								</tr>
-								<tr>
-									<td>Postcode:</td>
-									<td><input type="text" name="aanmeldfactuurelspostc" value="" /></td>
-								</tr>
-								<tr>
-									<td>Woonplaats:</td>
-									<td><input type="text" name="aanmeldfactuurelsplaats" value="" /></td>
-								</tr>
-							</table>
-						</div>
-						<div style="clear:both;"></div>
-					</div>
-
-					<script language="javascript" type="text/javascript">
-					$("#aanmelden_factuuradres").click(function()
-						{
-						if($(this).is(":checked"))
-							{
-							$("#aanmelden_factuuradres_afwijk").slideDown("slow");
-							}
-						else
-							{
-							$("#aanmelden_factuuradres_afwijk").slideUp("slow");
-							}
-						});
-					</script>
-
-					<div class="aanmelden_blok">
-						<h3>Welke van onze oplossingen wilt u aanvragen?</h3>
-						<input style="width:20px;" type="checkbox" name="voip" value="voip"><span>VoIP telefonie</span><br />
-						<input style="width:20px;" type="checkbox" name="internet" value="internet"><span>Internet</span><br />
-						<input style="width:20px;" type="checkbox" name="pin" value="pin"><span>Pin over IP</span><br />
-						<input style="width:20px;" type="checkbox" name="alarm" value="alarm"><span>Alarm over IP</span><br />
-					</div>
-					
-					<div class="aanmelden_blok">
-						Hierna te noemen “Gebruiker”, bevestigt dat de Algemene Voorwaarden van Service ICT, het Incassoformulier, het Bestelformulier xDSL onverbrekelijk en integraal deel uitmaken van deze overeenkomst. Service-ICT, leverancier van xDSL onder de naam Call Profit, en Gebruiker verklaren deze overeenkomst geldig en bindend met ingang van datum van ondertekening. Aan het eind van het stappenplan kunt u akkoord gaan met de voorwaarden en het formulier digitaal versturen<br /><br />
-						<h3>Hoe heeft u van ons gehoord?</h3>
-						<table cellpadding="0" cellspacing="0">
-							<tr>
-								<td style="width:141px;">Maak uw keus:</td>
-								<td>
-									<select name="aanmeldgehvankeus">
-										<option value="Via een kennis1">Via een kennis1</option>
-										<option value="Via een kennis2">Via een kennis2</option>
-										<option value="Via een kennis3">Via een kennis3</option>
-										<option value="Via een kennis4">Via een kennis4</option>
-										<option value="Anders namelijk:">Anders namelijk:</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>Anders, nl.</td>
-								<td><input type="text" name="aanmeldgehvananders" /></td>
-							</tr>
-						</table>
-					</div>
-				</form>
 	            </div>
-            	<p class="page_counter">Stap: <?php echo $key; ?> / <?php $keys = array_keys($pages); $last = end($keys); echo $last; ?>
-            </div>
-		<?php } ?>
+            	<p class='page_counter'>Stap: ".$key." / ".$keylast."
+            </div>";
+		} ?>
         </div>
 
 <?php }
