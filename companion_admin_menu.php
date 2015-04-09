@@ -48,7 +48,4 @@ function copyToClipboard(text) {
 <hr>
 <h3><?php _e( 'Created Steps', 'textdomain' ) ?></h3>
 
-<?php 
-foreach ($pages as $key => $value) {
-	echo"<li>".$key.". ".$value." <a href=''>Edit</a> | <a href=''>Delete</a></li>";
-} ?>
+<?php cforms_steps() ?>
