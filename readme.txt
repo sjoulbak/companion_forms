@@ -16,4 +16,11 @@ Oh and manually add data (or fix the submit button :P)
 Companion Forms is a simple plugin which allows you to make forms using multi-steps/pages
 
 == How to Install ==
-You know the drill... jk.. still need to write this
+From your WordPress dashboard
+- Currently unable
+
+Download File
+1.Download Companion Forms.
+2.Upload the 'Companion Forms' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
+3.Activate Companion Forms from your Plugins page.
+
