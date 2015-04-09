@@ -35,33 +35,52 @@ register_activation_hook( __FILE__, 'cforms_install' );
 function cforms_steps() {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'cforms';
+
 	$sqlcforms = mysql_query("SELECT * FROM $table_name")or die(mysql_error());
+
+	echo "<ol>";
 	while($rescforms = mysql_fetch_assoc($sqlcforms)) {
-		$confirm = 'Are you sure?';
-		echo'<li>'.$rescforms['id'].'. '.$rescforms['title'].' <a href="'.$_SERVER['REQUEST_URI'].'&editcform='.$rescforms['id'].'">Edit</a> | <a href="'.$_SERVER['REQUEST_URI'].'&deletecform='.$rescforms['id'].'">Delete</a></li>';
+		echo'<li>'.$rescforms['title'].' <a href="options-general.php?page=companion_forms_settings&editcform='.$rescforms['id'].'">Edit</a> | <a href="options-general.php?page=companion_forms_settings&deletecform='.$rescforms['id'].'">Delete</a></li>';
 	}
-	cforms_edit_step( $_GET['editcform'] );
+	echo "</ol>";
+
+	if (isset($_GET['editcform'])) {
+		cforms_edit_step( $_GET['editcform'] );
+	}
 }
 
 //Edit steps
 function cforms_edit_step($id) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'cforms';
+
 	$sqlcforms = mysql_query("SELECT * FROM $table_name WHERE id=$id")or die(mysql_error());
 	$rescforms = mysql_fetch_assoc($sqlcforms);
 
-	if (isset($_GET['editcform'])) {
-		echo"<hr>";
-		echo"<h3>Edit <i>".$rescforms['title']."</i> (step: ".$id.")</h3>";
+	echo"<hr>";
+	echo"<h3>Edit <i>".$rescforms['title']."</i></h3>";
 
-		echo"<form method='post' action='".$_SERVER['REQUEST_URI']."'>";
+	echo"<form method='post' action='".$_SERVER['REQUEST_URI']."'>";
 
-	   		echo"<input type='text' value='".$rescforms['content']."'>";
-	   		echo submit_button();
+   		echo"<input type='text' name ='title' value='".$rescforms['title']."'>";
+   		echo"<input type='text' name ='content' value='".$rescforms['content']."'>";
+   		echo submit_button();
 
-	   	echo"</form>";
+   	echo"</form>";
+
+   	if(isset($_POST['submit'])) {
+		if(!isset($_POST['title']) || trim($_POST['title']) == '') {
+			echo '<div id="message" class="error"><p><b>Title</b> cannot be empty!</p></div>';
+		} else {
+			echo '<div id="message" class="updated"><p>Step <b>'.$_POST['title'].'</b> updated</p></div>';
+		}
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'cforms';
+
+		mysql_query("UPDATE $table_name SET title='$_POST[title]', content='$_POST[content]' WHERE id=$id")or die(mysql_error());
 	}
 }
+
 // Deletes steps
 function cforms_delete_step($id) {
 	global $wpdb;
