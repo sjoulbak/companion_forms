@@ -184,7 +184,7 @@ add_action( 'admin_menu', 'register_cforms_menu_page' );
 function register_cforms_menu_page(){
 	add_menu_page( 'Companion Forms', 'Companion Forms', 'manage_options', 'companionforms', 'cforms_menu_page', plugins_url( '/companion_forms/c_icon.png' ), 6 );
 	add_submenu_page( 'companionforms', 'Settings', 'Settings', 'manage_options', 'companionforms-settings', 'cforms_settings_page' );
-	add_submenu_page( 'companionforms', 'Add Forms', 'Add Forms', 'manage_options', 'companionforms-add-forms', 'cforms_add_page' );
+	// add_submenu_page( 'companionforms', 'Add Forms', 'Add Forms', 'manage_options', 'companionforms-add-forms', 'cforms_add_page' );
 }
 
 // Create Pages
