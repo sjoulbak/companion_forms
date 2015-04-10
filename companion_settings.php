@@ -11,7 +11,7 @@
 			echo '<div id="message" class="error"><p><b>Email</b> cannot be blank!</p></div>';
 		} else {
 			echo '<div id="message" class="updated"><p>Jeej, you\'ve updated the settings!</div>';
-			mysql_query("UPDATE $table_name SET mail='$_POST[email]', sccsmsg='$_POST[succesmsg]' WHERE id = '1'")or die(mysql_error());
+			mysql_query("UPDATE $table_name SET mail='$_POST[email]', sccsmsg='$_POST[succesmsg]', navtabs='$_POST[navtabs]' WHERE id = '1'")or die(mysql_error());
 		}
 	}
 
@@ -28,6 +28,14 @@
 
 	<i style="color: #424242;">Succes Message:</i><br>
 	<input type="text" placeholder="Your mail has been send" name="succesmsg" value="<?php echo $ressets['sccsmsg']; ?>"><br>
+	<br>
+
+	<i style="color: #424242;">Navigation Tabs</i><br>
+		<select name="navtabs">
+			<option value="0">Show all</option>
+			<option value="1">Show name only</option>
+			<option value="2">Show number only</option>
+		</select>
 	<br>
 
 	<?php submit_button(); ?>
