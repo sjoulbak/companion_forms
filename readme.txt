@@ -1,5 +1,5 @@
 === Companion Forms ===
-Contributors: Papin
+Contributors: DakelNL, DrScavenger
 Requires at least: 3.5
 Tested up to: 4.1
 
@@ -22,4 +22,3 @@ Download File
 1.Download Companion Forms.
 2.Upload the 'Companion Forms' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
 3.Activate Companion Forms from your Plugins page.
-
