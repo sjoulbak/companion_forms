@@ -13,6 +13,10 @@ Name: wp_cforms
 
 == Description ==
 Companion Forms is a simple plugin which allows you to make forms using multi-steps/pages
+Do you need a high amount of information from someone?
+Then a single form would get to long.
+With companion form you can easily split your form in multiple tabs.
+
 
 == How to Install ==
 From your WordPress dashboard
