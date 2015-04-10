@@ -5,12 +5,13 @@
 */
 
 // Create datbase table
+global $cforms_db_version;
+$cforms_db_version = '1.0';
+
 function cforms_install(){
-	global $wpdb;
+    global $wpdb;
 
-	$cforms_db_version = '1.0';
-
-	$charset_collate = $wpdb->get_charset_collate();
+   	$charset_collate = $wpdb->get_charset_collate();
 
 	$table_name = $wpdb->prefix . 'cforms';
 
@@ -23,7 +24,7 @@ function cforms_install(){
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
 	dbDelta( $sql );
-	
+
 	add_option( 'cforms_db_version', $cforms_db_version );
 }
 
@@ -32,6 +33,7 @@ register_activation_hook( __FILE__, 'cforms_install' );
 
 // Show the exisitin steps
 function cforms_steps() {
+	echo '<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">';
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'cforms';
 
@@ -39,15 +41,69 @@ function cforms_steps() {
 
 	echo "<ol class='boxed_list'>";
 	while($rescforms = mysql_fetch_assoc($sqlcforms)) {
-		echo'<li><b>'.$rescforms['title'].'</b><br>
-		<a href="admin.php?page=companionforms&editcform='.$rescforms['id'].'">Edit</a> | 
-		<a href="admin.php?page=companionforms&deletecform='.$rescforms['id'].'">Delete</a></li><br>';
+		echo'<li><b>'.$rescforms['title'].'</b> 
+
+		<b><a href="admin.php?page=companionforms&mvup='.$rescforms['id'].'" title="move up"><i class="fa fa-angle-up"></i></a> 
+		<a href="admin.php?page=companionforms&mvdown='.$rescforms['id'].'" title="move down"><i class="fa fa-angle-down"></i></a></b><br>
+
+		<a href="admin.php?page=companionforms&editcform='.$rescforms['id'].'"><i class="fa fa-pencil"></i></a> | 
+		<a href="admin.php?page=companionforms&deletecform='.$rescforms['id'].'"><i class="fa fa-trash-o"></i></a></li><br>';
 	}
 	echo "</ol>";
 
 	if (isset($_GET['editcform'])) {
 		cforms_edit_step( $_GET['editcform'] );
 	}
+
+	if (isset($_GET['mvup'])) {
+		cforms_move_up( $_GET['mvup'] );
+	}
+
+	if (isset($_GET['mvdown'])) {
+		cforms_move_down( $_GET['mvdown'] );
+	}
+}
+
+// Move up
+function cforms_move_up($id) {
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'cforms';
+
+	echo "Ahh man, you broke it!<br>";
+	echo "You are moving #".$id." up";
+
+	$nextid = ($id-1);
+
+	//First clear the current ID
+	mysql_query("UPDATE $table_name SET id='0' WHERE id=$id")or die(mysql_error());
+
+	//Then Move the next item up
+	mysql_query("UPDATE $table_name SET id=$id WHERE id=$nextid")or die(mysql_error());
+
+
+	//Then Move current down
+	mysql_query("UPDATE $table_name SET id=$nextid WHERE id=$id")or die(mysql_error());
+}
+
+function cforms_move_down($id) {
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'cforms';
+
+	echo "Ahh man, you broke it!<br>";
+	echo "You are moving #".$id." down";
+
+	$nextid = ($id+1);
+
+	//First clear the current ID
+	mysql_query("UPDATE $table_name SET id='0' WHERE id=$id")or die(mysql_error());
+
+	//Then Move the next item up
+	mysql_query("UPDATE $table_name SET id=$id WHERE id=$nextid")or die(mysql_error());
+
+
+	//Then Move current down
+	mysql_query("UPDATE $table_name SET id=$nextid WHERE id=$id")or die(mysql_error());
+
 }
 
 //Edit steps
