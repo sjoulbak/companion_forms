@@ -57,10 +57,20 @@ function companion_forms() {
 			global $keylast;
 			$keylast = 0;
 
+			$tabinfo = $ressets['navtabs'];
+
 			while($rescforms = mysql_fetch_assoc($sqlcforms)) {
 				$key++;
 				$keylast++;
-				echo"<li><a href='#".$rescforms['id']."'>".$key.". ".$rescforms['title']."</a></li>";
+				echo"<li><a href='#".$rescforms['id']."'>";
+				if($tabinfo == 0 OR $tabinfo == 2) {
+					echo $key;
+					echo ". ";
+				} 
+				if($tabinfo == 0 OR $tabinfo == 1) {
+				 echo $rescforms['title'];
+				}
+				echo"</a></li>";
 
 			} ?>
         </ul>
