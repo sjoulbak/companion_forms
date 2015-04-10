@@ -119,8 +119,8 @@ function cforms_edit_step($id) {
 
 	echo"<form method='post' action='".$_SERVER['REQUEST_URI']."'>";
 
-   		echo"<input type='text' name ='title' value='".$rescforms['title']."'>";
-   		echo"<input type='text' name ='content' value='".$rescforms['content']."'>";
+   		echo"<input type='text' name ='title' value='".$rescforms['title']."' style='width: 350px;'><br>";
+   		echo"<textarea name ='content' value='' placeholder='voeg een formulier toe' style='height: 400px; width: 350px;'>".$rescforms['content']."</textarea>";
    		echo submit_button();
 
    	echo"</form>";
