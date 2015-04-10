@@ -88,10 +88,31 @@ function cforms_delete_step($id) {
 	$table_name = $wpdb->prefix . 'cforms';
 	$sqlcforms = mysql_query("DELETE FROM $table_name WHERE id=$id")or die(mysql_error());
 }
-if (isset($_GET['deletecform'])) {
-    cforms_delete_step($_GET['deletecform']);
-}
+echo'<style>
+	.cforms_popup {
+		position: fixed;
+		background: #FFF;
+		border-radius: 5px;
+		box-shadow: 1px 1px 8px #424242;
+		top: 50px;
+		left: calc(50% - 125px);
+		width: 250px;
+		padding: 20px;
+		z-index: 99999;
+	}
+</style>';
 
+if (isset($_GET['deletecform'])) {
+	echo '<div class="cforms_popup">';
+		echo "<b>You are about to delete something!</b><br>";
+		echo "Are you sure?<br><br>";
+	    echo'<a href="admin.php?page=companionforms&true-delete='.$_GET['deletecform'].'" class="button button-primary">Yes!</a>';
+	    echo'&nbsp;&nbsp;<a href="admin.php?page=companionforms" class="button">Neh</a>';
+	echo '</div>';
+}
+if (isset($_GET['true-delete'])) {
+	cforms_delete_step($_GET['true-delete']);
+}
 
 // Now we set that function up to execute
 add_option( 'companion_forms' );
