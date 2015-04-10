@@ -80,7 +80,6 @@ function cforms_move_up($id) {
 	//Then Move the next item up
 	mysql_query("UPDATE $table_name SET id=$id WHERE id=$nextid")or die(mysql_error());
 
-
 	//Then Move current down
 	mysql_query("UPDATE $table_name SET id=$nextid WHERE id=$id")or die(mysql_error());
 }
@@ -100,7 +99,6 @@ function cforms_move_down($id) {
 	//Then Move the next item up
 	mysql_query("UPDATE $table_name SET id=$id WHERE id=$nextid")or die(mysql_error());
 
-
 	//Then Move current down
 	mysql_query("UPDATE $table_name SET id=$nextid WHERE id=$id")or die(mysql_error());
 
@@ -119,8 +117,8 @@ function cforms_edit_step($id) {
 
 	echo"<form method='post' action='".$_SERVER['REQUEST_URI']."'>";
 
-   		echo"<input type='text' name ='title' value='".$rescforms['title']."' style='width: 350px;'><br>";
-   		echo"<textarea name ='content' value='' placeholder='voeg een formulier toe' style='height: 400px; width: 350px;'>".$rescforms['content']."</textarea>";
+   		echo"<input type='text' name ='title' value='".$rescforms['title']."' style='width: 100%;'><br>";
+   		echo"<textarea name ='content' value='' placeholder='voeg een formulier toe' style='height: 400px; width: 100%;'>".$rescforms['content']."</textarea>";
    		echo submit_button();
 
    	echo"</form>";

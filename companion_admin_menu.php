@@ -36,10 +36,10 @@ function copyToClipboard(text) {
 		<?php settings_fields( 'companion_forms_group' );
 		do_settings_sections( 'companion_forms_group' ); ?>
 
-		<input type="text" placeholder="<?php _e( 'Title', 'textdomain' ) ?>" name="title"><br>
+		<input type="text" placeholder="<?php _e( 'Title', 'textdomain' ) ?>" name="title" style="width: 100%;"><br>
 		<i style="color: #424242;">The step title (e.g. Step 1 or Personal Info)</i><br><br>
 
-		<input type="text" placeholder="<?php _e( 'Content', 'textdomain' ) ?>" name="content"><br>
+		<textarea name="content" placeholder="<?php _e( 'Content', 'textdomain' ) ?>" style="height: 400px; width: 100%;"></textarea><br>
 		<i style="color: #424242;">Still thinking on how I'm going to do this</i><br><br>
 
 		<?php submit_button(); ?>
