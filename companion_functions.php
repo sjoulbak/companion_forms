@@ -40,8 +40,8 @@ function cforms_steps() {
 	echo "<ol class='boxed_list'>";
 	while($rescforms = mysql_fetch_assoc($sqlcforms)) {
 		echo'<li><b>'.$rescforms['title'].'</b><br>
-		<a href="options-general.php?page=companion_forms_settings&editcform='.$rescforms['id'].'">Edit</a> | 
-		<a href="options-general.php?page=companion_forms_settings&deletecform='.$rescforms['id'].'">Delete</a></li><br>';
+		<a href="admin.php?page=companionforms&editcform='.$rescforms['id'].'">Edit</a> | 
+		<a href="admin.php?page=companionforms&deletecform='.$rescforms['id'].'">Delete</a></li><br>';
 	}
 	echo "</ol>";
 
@@ -105,8 +105,9 @@ add_shortcode( 'companionform' , 'companion_forms' );
 add_action( 'admin_menu', 'register_cforms_menu_page' );
 
 function register_cforms_menu_page(){
-	add_menu_page( 'Companion Forms', 'C. Forms', 'manage_options', 'companionforms', 'cforms_menu_page', plugins_url( '/companion_forms/c_icon.png' ), 6 ); 
+	add_menu_page( 'Companion Forms', 'C. Forms', 'manage_options', 'companionforms', 'cforms_menu_page', plugins_url( '/companion_forms/c_icon.png' ), 6 );     
 }
+
 
 function cforms_menu_page(){
 	echo '<div class="wrap">';
