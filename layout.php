@@ -41,9 +41,6 @@ ul.top_page_navigation li.selected a {
 	width: 50%;
 	float: left;
 }
-.boxed_list li {
-	border-bottom: 1px solid #DDD;
-}
 </style>
 <script>
 /* http://www.menucool.com/tabbed-content Free to use. v2013.7.6 */

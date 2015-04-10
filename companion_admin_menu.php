@@ -1,9 +1,6 @@
 <!-- 
 	Companion Forms Settings Page
 	This is the settings page for the plugin, located under Settings > Companion Forms
-
-	Ideas:
-	use contact form 7 to create the forms?
 -->
 <p style="position: fixed; right: 25px; top: 40px;">
 	<a href="http://dakeldesigns.nl" target="_blank">More Plugins/Themes</a> | <a href="https://github.com/DakelNL/companion_forms" target="_blank">GitHub Page :)</a>
@@ -17,8 +14,8 @@ function copyToClipboard(text) {
 
 <?php if (isset($_GET['addnew'])) { ?>
 	<h2><?php _e( 'Add', 'textdomain' ) ?>  Companion Forms 
-	<a href="options-general.php?page=companion_forms_settings" class="add-new-h2">Main Page</a> 
-	<a href="options-general.php?page=companion_forms_settings&settings=all" class="add-new-h2">Settings</a> 
+	<a href="admin.php?page=companionforms" class="add-new-h2">Main Page</a> 
+	<a href="admin.php?page=companionforms&settings=all" class="add-new-h2">Settings</a> 
 	<a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
 	<hr>
 	<!-- Add New Step -->
@@ -52,17 +49,17 @@ function copyToClipboard(text) {
 <?php } elseif (isset($_GET['settings'])) { ?>
 
 	<h2>Companion Forms <?php _e( 'Settings', 'textdomain' ) ?>  
-	<a href="options-general.php?page=companion_forms_settings" class="add-new-h2">Main Page</a> 
+	<a href="admin.php?page=companionforms" class="add-new-h2">Main Page</a> 
 	<a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
 	<hr>
-	<p>This.. this right here, this is where eventually some settings will end up..</p>
-	<p>e.g. show/hide step counter, show/hide tab title/number etc. etc.</p>
+	<p>Here I will make some settings</p>
+
 
 <?php } else { ?>
 
 	<h2><?php _e( 'Edit', 'textdomain' ) ?>  Companion Forms 
 	<a href="<?php echo $_SERVER['REQUEST_URI'];?>&addnew" class="add-new-h2">Add New Step</a>
-	<a href="options-general.php?page=companion_forms_settings&settings=all" class="add-new-h2">Settings</a>  
+	<a href="admin.php?page=companionforms&settings=all" class="add-new-h2">Settings</a>  
 	<a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
 
 	<!-- Show Created Step -->

@@ -5,17 +5,16 @@
 */
 
 // Create datbase table
-global $cforms_db_version;
-$cforms_db_version = '1.0';
-
 function cforms_install(){
 	global $wpdb;
+
+	$cforms_db_version = '1.0';
 
 	$charset_collate = $wpdb->get_charset_collate();
 
 	$table_name = $wpdb->prefix . 'cforms';
 
-	$sql = "CREATE TABLE $table_name (
+	$sql = "CREATE TABLE IF NOT EXISTS $table_name (
 		id int(6) NOT NULL AUTO_INCREMENT,
 		title varchar(255) NOT NULL,
 		content varchar(255) DEFAULT '' NOT NULL,
@@ -100,25 +99,19 @@ add_option( 'companion_forms' );
 // Add a shortcode
 add_shortcode( 'companionform' , 'companion_forms' );
 
-//Add plugin to menu
-add_action( 'admin_menu', 'companion_forms_menu' );
 
-function companion_forms_menu() {
-	add_options_page( 'Companion Forms Options', 'Companion Forms', 'manage_options', 'companion_forms_settings', 'companion_forms_options' );
+
+//Add plugin to menu
+add_action( 'admin_menu', 'register_cforms_menu_page' );
+
+function register_cforms_menu_page(){
+	add_menu_page( 'Companion Forms', 'C. Forms', 'manage_options', 'companionforms', 'cforms_menu_page', plugins_url( '/companion_forms/c_icon.png' ), 6 ); 
 }
 
-function companion_forms_options() {
-	if ( !current_user_can( 'manage_options' ) )  {
-		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-	}
+function cforms_menu_page(){
 	echo '<div class="wrap">';
 		include('companion_admin_menu.php');
 	echo '</div>';
 }
-
-function companion_forms_setting() {
-	register_setting( 'companion_forms_group', 'Companion Forms', 'intval' ); 
-} 
-add_action( 'admin_init', 'companion_forms_setting' );
 
 ?>
