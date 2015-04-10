@@ -15,7 +15,6 @@ function copyToClipboard(text) {
 <?php if (isset($_GET['addnew'])) { ?>
 	<h2><?php _e( 'Add', 'textdomain' ) ?>  Companion Forms 
 	<a href="admin.php?page=companionforms" class="add-new-h2">Main Page</a> 
-	<a href="admin.php?page=companionforms&settings=all" class="add-new-h2">Settings</a> 
 	<a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
 	<hr>
 	<!-- Add New Step -->
@@ -59,7 +58,6 @@ function copyToClipboard(text) {
 
 	<h2><?php _e( 'Edit', 'textdomain' ) ?>  Companion Forms 
 	<a href="<?php echo $_SERVER['REQUEST_URI'];?>&addnew" class="add-new-h2">Add New Step</a>
-	<a href="admin.php?page=companionforms&settings=all" class="add-new-h2">Settings</a>  
 	<a onclick="copyToClipboard('[companionform]');" class="add-new-h2"><?php _e( 'Get Shortcode', 'textdomain' ) ?></a></h2>
 
 	<!-- Show Created Step -->
