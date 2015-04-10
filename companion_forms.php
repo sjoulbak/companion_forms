@@ -4,7 +4,7 @@
 	Plugin URI: http://callprofit.nl
 	Description: Create a multi page form and add it to any page using shortcodes.
 	Author: Service ICT, Papin
-	Version: 0.0.8
+	Version: 0.1.1
 	Author URI: http://service-ict.nl
 	License: GPL2
 */
@@ -21,15 +21,23 @@ function companion_forms() {
 	// Include layout stuff (css, javascript)
 	include('layout.php');
 
-	$functie = "Contact Formulier";
-	$emailadres = "info@dakel.eu"; // let's make this a variable
+	global $wpdb;
+	$table_nameSETS = $wpdb->prefix . 'cformsettings';
+
+	$setssql = mysql_query("SELECT * FROM $table_nameSETS WHERE id = '1'")or die(mysql_error());
+	$ressets = mysql_fetch_assoc($setssql);
+
+	$functie = "Contact Formul";
+	$emailadres = $ressets['mail'];
 	$headers = "From: Test (test@test.com) \r\n"; 
 	$message = "Testing \n\n"; 
 
 	if(isset($_POST['submit'])){ 
 		// if($_POST["login"] != "" && $_POST["email"] != "" && $_POST["totslot"] != "") { 
 			mail($emailadres, $headers, $message, $headers);
-			echo"<p>Uw Email is verzonden.</p>"; 
+			echo "<p class='succesMSG'>";
+				echo $ressets['sccsmsg'];
+			echo "</p>";
 		// }  else  { 
 		// 	echo"<p>Er is iets fout gegaan, waarschijnlijk bent u vergeten iets in te vullen.</p>"; 
 		// } 

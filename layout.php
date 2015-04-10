@@ -41,6 +41,12 @@ ul.top_page_navigation li.selected a {
 	width: 50%;
 	float: left;
 }
+.succesMSG {
+	border: 1px solid #DDD;
+	border-left: 3px solid green;
+	padding: 10px;
+	margin-bottom: 10px;
+}
 </style>
 <script>
 /* http://www.menucool.com/tabbed-content Free to use. v2013.7.6 */
