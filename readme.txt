@@ -5,7 +5,7 @@ Tested up to: 4.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-== IMPORTAN! ==
+== IMPORTANT! ==
 If you want to test this plugin / help developing this plugin, mannually create a database or fix the auto creator
 The database has to be something like this:
 Name: wp_cforms
@@ -18,7 +18,6 @@ Companion Forms is a simple plugin which allows you to make forms using multi-st
 Do you need a high amount of information from someone?
 Then a single form would get to long.
 With companion form you can easily split your form in multiple tabs.
-
 
 == How to Install ==
 From your WordPress dashboard
