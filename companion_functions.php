@@ -8,8 +8,11 @@
 global $cforms_db_version;
 $cforms_db_version = '1.0';
 
+
 function cforms_install(){
   global $wpdb;
+
+  echo "dsfsd";
 
   $charset_collate = $wpdb->get_charset_collate();
 
@@ -28,7 +31,7 @@ function cforms_install(){
 	add_option( 'cforms_db_version', $cforms_db_version );
 }
 
-register_activation_hook( __FILE__, 'cforms_install' );
+
 
 
 // Show the exisitin steps
@@ -143,6 +146,7 @@ function cforms_delete_step($id) {
 	$sqlcforms = mysql_query("DELETE FROM $table_name WHERE id=$id")or die(mysql_error());
 }
 
+/*
 echo'<style>
 	.cforms_popup {
 		position: fixed;
@@ -156,6 +160,7 @@ echo'<style>
 		z-index: 99999;
 	}
 </style>';
+*/
 
 if (isset($_GET['deletecform'])) {
 	echo '<div class="cforms_popup">';
@@ -168,6 +173,7 @@ if (isset($_GET['deletecform'])) {
 if (isset($_GET['true-delete'])) {
 	cforms_delete_step($_GET['true-delete']);
 }
+
 
 // Now we set that function up to execute
 add_option( 'companion_forms' );

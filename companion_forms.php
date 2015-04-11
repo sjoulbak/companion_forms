@@ -16,6 +16,10 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
+require_once('companion_functions.php');
+
+register_activation_hook( __FILE__, 'cforms_install' );
+
 // The Main function that displays the form
 function companion_forms() { 
 	// Include layout stuff (css, javascript)
@@ -99,7 +103,5 @@ function companion_forms() {
         </div>
     </form>
 <?php }
-
-require('companion_functions.php');
 
 ?>
