@@ -36,7 +36,7 @@ function companion_forms() {
 		// if($_POST["login"] != "" && $_POST["email"] != "" && $_POST["totslot"] != "") { 
 			mail($emailadres, $headers, $message, $headers);
 			echo "<p class='succesMSG'>";
-				echo $ressets['sccsmsg'];
+			echo $ressets['sccsmsg'];
 			echo "</p>";
 		// }  else  { 
 		// 	echo"<p>Er is iets fout gegaan, waarschijnlijk bent u vergeten iets in te vullen.</p>"; 
@@ -100,6 +100,6 @@ function companion_forms() {
     </form>
 <?php }
 
-include('companion_functions.php');
+require('companion_functions.php');
 
 ?>

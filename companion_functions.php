@@ -9,9 +9,9 @@ global $cforms_db_version;
 $cforms_db_version = '1.0';
 
 function cforms_install(){
-    global $wpdb;
+  global $wpdb;
 
-   	$charset_collate = $wpdb->get_charset_collate();
+  $charset_collate = $wpdb->get_charset_collate();
 
 	$table_name = $wpdb->prefix . 'cforms';
 
@@ -117,13 +117,13 @@ function cforms_edit_step($id) {
 
 	echo"<form method='post' action='".$_SERVER['REQUEST_URI']."'>";
 
-   		echo"<input type='text' name ='title' value='".$rescforms['title']."' style='width: 100%;'><br>";
-   		echo"<textarea name ='content' value='' placeholder='voeg een formulier toe' style='height: 400px; width: 100%;'>".$rescforms['content']."</textarea>";
-   		echo submit_button();
+	echo"<input type='text' name ='title' value='".$rescforms['title']."' style='width: 100%;'><br>";
+	echo"<textarea name ='content' value='' placeholder='voeg een formulier toe' style='height: 400px; width: 100%;'>".$rescforms['content']."</textarea>";
+	echo submit_button();
 
-   	echo"</form>";
+  echo"</form>";
 
-   	if(isset($_POST['submit'])) {
+  if(isset($_POST['submit'])) {
 		if(!isset($_POST['title']) || trim($_POST['title']) == '') {
 			echo '<div id="message" class="error"><p><b>Title</b> cannot be empty!</p></div>';
 		} else {
@@ -142,6 +142,7 @@ function cforms_delete_step($id) {
 	$table_name = $wpdb->prefix . 'cforms';
 	$sqlcforms = mysql_query("DELETE FROM $table_name WHERE id=$id")or die(mysql_error());
 }
+
 echo'<style>
 	.cforms_popup {
 		position: fixed;
@@ -158,10 +159,10 @@ echo'<style>
 
 if (isset($_GET['deletecform'])) {
 	echo '<div class="cforms_popup">';
-		echo "<b>You are about to delete something!</b><br>";
-		echo "Are you sure?<br><br>";
-	    echo'<a href="admin.php?page=companionforms&true-delete='.$_GET['deletecform'].'" class="button button-primary">Yes!</a>';
-	    echo'&nbsp;&nbsp;<a href="admin.php?page=companionforms" class="button">Neh</a>';
+	echo "<b>You are about to delete something!</b><br>";
+	echo "Are you sure?<br><br>";
+	echo'<a href="admin.php?page=companionforms&true-delete='.$_GET['deletecform'].'" class="button button-primary">Yes!</a>';
+	echo'&nbsp;&nbsp;<a href="admin.php?page=companionforms" class="button">Neh</a>';
 	echo '</div>';
 }
 if (isset($_GET['true-delete'])) {
@@ -173,8 +174,6 @@ add_option( 'companion_forms' );
 
 // Add a shortcode
 add_shortcode( 'companionform' , 'companion_forms' );
-
-
 
 //Add plugin to menu
 add_action( 'admin_menu', 'register_cforms_menu_page' );
@@ -188,20 +187,20 @@ function register_cforms_menu_page(){
 // Create Pages
 function cforms_menu_page(){
 	echo '<div class="wrap">';
-		include('companion_admin_menu.php');
+	include('companion_admin_menu.php');
 	echo '</div>';
 }
 
 function cforms_settings_page(){
 	echo '<div class="wrap">';
-		include('companion_settings.php');
+	include('companion_settings.php');
 	echo '</div>';
 }
 
 
 function cforms_add_page(){
 	echo '<div class="wrap">';
-		include('companion_forms_add.php');
+	include('companion_forms_add.php');
 	echo '</div>';
 }
 
