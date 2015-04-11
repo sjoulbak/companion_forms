@@ -47,6 +47,17 @@ ul.top_page_navigation li.selected a {
 	padding: 10px;
 	margin-bottom: 10px;
 }
+.cforms_popup {
+	position: fixed;
+	background: #FFF;
+	border-radius: 5px;
+	box-shadow: 1px 1px 8px #424242;
+	top: 50px;
+	left: calc(50% - 125px);
+	width: 250px;
+	padding: 20px;
+	z-index: 99999;
+}
 </style>
 <script>
 /* http://www.menucool.com/tabbed-content Free to use. v2013.7.6 */
