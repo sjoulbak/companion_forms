@@ -15,16 +15,26 @@ function cforms_install(){
   $charset_collate = $wpdb->get_charset_collate();
 
 	$table_name = $wpdb->prefix . 'cforms';
+	$table_settings = $wpdb->prefix . 'cformsettings';
 
 	$sql = "CREATE TABLE IF NOT EXISTS $table_name (
 		id int(6) NOT NULL AUTO_INCREMENT,
 		title varchar(255) NOT NULL,
-		content varchar(255) DEFAULT '' NOT NULL,
+		content varchar(5000) DEFAULT '' NOT NULL,
+		UNIQUE KEY id (id)
+	) $charset_collate;";
+
+	$sql2 = "CREATE TABLE IF NOT EXISTS $table_settings (
+		id int(11) NOT NULL AUTO_INCREMENT,
+		mail varchar(255) NOT NULL,
+		sccsmsg varchar(255) NOT NULL,
+		navtab int(1) NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
 	dbDelta( $sql );
+	dbDelta( $sql2 );
 
 	add_option( 'cforms_db_version', $cforms_db_version );
 }
