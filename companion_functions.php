@@ -144,7 +144,6 @@ function cforms_delete_step($id) {
 	$sqlcforms = mysql_query("DELETE FROM $table_name WHERE id=$id")or die(mysql_error());
 }
 
-/*
 echo'<style>
 	.cforms_popup {
 		position: fixed;
@@ -158,7 +157,7 @@ echo'<style>
 		z-index: 99999;
 	}
 </style>';
-*/
+
 
 if (isset($_GET['deletecform'])) {
 	echo '<div class="cforms_popup">';
