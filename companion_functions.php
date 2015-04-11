@@ -12,8 +12,6 @@ $cforms_db_version = '1.0';
 function cforms_install(){
   global $wpdb;
 
-  echo "dsfsd";
-
   $charset_collate = $wpdb->get_charset_collate();
 
 	$table_name = $wpdb->prefix . 'cforms';
