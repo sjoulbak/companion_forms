@@ -1,17 +1,9 @@
 === Companion Forms ===
-Contributors: DakelNL, DrScavenger
+Contributors: DakelNL, DrScavenger, Nielsdoorn
 Requires at least: 3.5
 Tested up to: 4.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-== IMPORTANT! ==
-If you want to test this plugin / help developing this plugin, mannually create a database or fix the auto creator
-The database has to be something like this:
-Name: wp_cforms
-- id: int(6) A_I Unique
-- title: varchar(255) NOT NULL
-- content: varchar(255) NULL
 
 == Description ==
 Companion Forms is a simple plugin which allows you to make forms using multi-steps/pages
