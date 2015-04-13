@@ -154,8 +154,10 @@ function cforms_delete_step($id) {
 	$sqlcforms = mysql_query("DELETE FROM $table_name WHERE id=$id")or die(mysql_error());
 }
 
-
 if (isset($_GET['deletecform'])) {
+	// Include layout stuff (css, javascript)
+	include('layout.php');
+
 	echo '<div class="cforms_popup">';
 	echo "<b>You are about to delete something!</b><br>";
 	echo "Are you sure?<br><br>";

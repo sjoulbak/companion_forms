@@ -18,13 +18,13 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 require_once('companion_functions.php');
 
-// Include layout stuff (css, javascript)
-include('layout.php');
 
 register_activation_hook( __FILE__, 'cforms_install' );
 
 // The Main function that displays the form
 function companion_forms() { 
+	// Include layout stuff (css, javascript)
+	include('layout.php');
 
 	global $wpdb;
 	$table_nameSETS = $wpdb->prefix . 'cformsettings';
