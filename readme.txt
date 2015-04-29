@@ -13,7 +13,7 @@ With companion form you can easily split your form in multiple tabs.
 
 == How to Install ==
 From your WordPress dashboard
-- Currently unavailable
+- Currently unavailable!
 
 Download File
 1.Download Companion Forms.
