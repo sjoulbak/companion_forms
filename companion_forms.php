@@ -30,9 +30,9 @@ function companion_forms() {
 
 	$setssql = $wpdb->get_results("SELECT * FROM $table_nameSETS WHERE id = '1'")or die(mysql_error());
 	foreach ( $setssql as $setssql )  {
-		$tabinfo = $sqlcforms->navtabs;
-		$mail = $sqlcforms->mail;
-		$succesmsg = $sqlcforms->sccsmsg;
+		$tabinfo = $setssql->navtab;
+		$mail = $setssql->mail;
+		$succesmsg = $setssql->sccsmsg;
 	}
 
 	// Header information
