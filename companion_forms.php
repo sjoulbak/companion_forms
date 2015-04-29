@@ -1,11 +1,11 @@
 <?php
 /*
 	Plugin Name: Companion Forms
-	Plugin URI: http://callprofit.nl
+	Plugin URI: https://github.com/DakelNL/companion_forms
 	Description: Create a multi page form and add it to any page using shortcodes.
-	Author: Service ICT, Papin
-	Version: 0.1.1
-	Author URI: http://service-ict.nl
+	Author: Papin Schipper
+	Version: 0.2.1
+	Author URI: http://papinschipper.nl
 	License: GPL2
 */
 

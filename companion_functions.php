@@ -45,87 +45,61 @@ function cforms_install(){
 // Show the exisitin steps
 function cforms_steps() {
 	echo '<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">';
-	global $wpdb;
-	$table_name = $wpdb->prefix . 'cforms';
-
-	$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error());
-
-	echo "<ol class='boxed_list'>";
-	foreach ( $sqlcforms as $sqlcforms )  {
-		echo'<li><b>'.$sqlcforms->title.'</b> 
-
-		<b><a href="admin.php?page=companionforms&mvup='.$sqlcforms->id.'" title="move up"><i class="fa fa-angle-up"></i></a> 
-		<a href="admin.php?page=companionforms&mvdown='.$sqlcforms->id.'" title="move down"><i class="fa fa-angle-down"></i></a></b><br>
-
-		<a href="admin.php?page=companionforms&editcform='.$sqlcforms->id.'"><i class="fa fa-pencil"></i></a> | 
-		<a href="admin.php?page=companionforms&deletecform='.$sqlcforms->id.'"><i class="fa fa-trash-o"></i></a></li><br>';
-	}
-	echo "</ol>";
 
 	if (isset($_GET['editcform'])) {
-		cforms_edit_step( $_GET['editcform'] );
-	}
+		cforms_edit_step();
+	} else {
 
-	if (isset($_GET['mvup'])) {
-		cforms_move_up( $_GET['mvup'] );
-	}
+		// For more forms
+		$form_name = "Companion Form 1";
 
-	if (isset($_GET['mvdown'])) {
-		cforms_move_down( $_GET['mvdown'] );
-	}
-}
-
-// Move up
-function cforms_move_up($id) {
-	global $wpdb;
-	$table_name = $wpdb->prefix . 'cforms';
-
-	echo "Ahh man, you broke it!<br>";
-	echo "You are moving #".$id." up";
-}
-
-function cforms_move_down($id) {
-	global $wpdb;
-	$table_name = $wpdb->prefix . 'cforms';
-
-	echo "Ahh man, you broke it!<br>";
-	echo "You are moving #".$id." down";
-
-}
-
-//Edit steps
-function cforms_edit_step($id) {
-	global $wpdb;
-	$table_name = $wpdb->prefix . 'cforms';
-
-	$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name WHERE id=$id")or die(mysql_error());
-	foreach ( $sqlcforms as $sqlcforms ) {
-
-	echo"<hr>";
-	echo"<h3>Edit <i>".$sqlcforms->title."</i></h3>";
-
-	echo"<form method='post' action='".$_SERVER['REQUEST_URI']."'>";
-
-   		echo"<input type='text' name ='title' value='".$sqlcforms->title."' style='width: 100%;'><br>";
-   		echo"<textarea name ='content' value='' placeholder='voeg een formulier toe' style='height: 400px; width: 100%;'>".$sqlcforms->content."</textarea>";
-   		echo submit_button();
-
-   	echo"</form>";
-
-   	if(isset($_POST['submit'])) {
-		if(!isset($_POST['title']) || trim($_POST['title']) == '') {
-			echo '<div id="message" class="error"><p><b>Title</b> cannot be empty!</p></div>';
-		} else {
-			echo '<div id="message" class="updated"><p>Step <b>'.$_POST['title'].'</b> updated</p></div>';
-		}
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'cforms';
 
-		$wpdb->query("UPDATE $table_name SET title='$_POST[title]', content='$_POST[content]' WHERE id=$id")or die(mysql_error());
-	}
+		$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error()); ?>
 
+		<h2>Companion Forms
+		<a href="<?php echo $_SERVER['REQUEST_URI'];?>&addnew" class="add-new-h2">Add New Step</a></h2>
+
+		<hr>
+		<div id="welcome-panel" class="welcome-panel">
+			<h3><?=$form_name; ?></h3>
+			<i>Copy and paste this code on any page to display this plugin.</i><br>
+			<input type='text' value='[companionform]' style="width: 99%;"><br><br>
+		</div>
+
+		<?php echo '<div id="welcome-panel" class="welcome-panel">';
+			echo "<ol class='boxed_list'>";
+			foreach ( $sqlcforms as $sqlcforms )  {
+				echo'<li><b>'.$sqlcforms->title.'</b>
+
+				<a href="admin.php?page=companionforms&editcform='.$sqlcforms->id.'"><i class="fa fa-pencil"></i></a> | 
+				<a href="admin.php?page=companionforms&deletecform='.$sqlcforms->id.'"><i class="fa fa-trash-o"></i></a></li><br>';
+			}
+			echo "</ol>";
+		echo "</div>";
 	}
 }
+
+//Edit steps
+function cforms_edit_step() {
+	include('companion_edit_steps.php');
+}
+
+//Add steps
+function cforms_add_step() {
+	include('companion_add_steps.php');
+}
+
+function addForms() { ?>
+	<a onClick="add('<label>LABEL</label>\n<input type=\'text\' name=\'NAAM\'><br>\n\n')" class="button button-small">Text Input</a>
+	<a onClick="add('<label>LABEL</label>\n<input type=\'email\' name=\'NAAM\'><br>\n\n')" class="button button-small">Email Input</a>
+	<a onClick="add('<label>LABEL</label>\n<input type=\'checkbox\' name=\'NAAM\'><br>\n\n')" class="button button-small">Checkbox</a>
+	<a onClick="add('<label>LABEL</label>\n<input type=\'radio\' name=\'NAAM\'><br>\n\n')" class="button button-small">Radio</a>
+
+	<hr>
+	<a onClick="add('<input type=\'submit\' name=\'submit\' value=\'Submit\'><br>\n\n')" class="button button-small">Submit Button</a>
+<? }
 
 // Deletes steps
 function cforms_delete_step($id) {
