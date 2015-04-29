@@ -25,6 +25,7 @@ function cforms_install(){
 
 	$sql2 = "CREATE TABLE IF NOT EXISTS $table_settings (
 		id int(11) NOT NULL AUTO_INCREMENT,
+		name varchar(255) NOT NULL,
 		mail varchar(255) NOT NULL,
 		sccsmsg varchar(255) NOT NULL,
 		navtab int(1) NOT NULL,
@@ -35,7 +36,7 @@ function cforms_install(){
 	) $charset_collate;";
 
 	// set-up some basic info
-	$wpdb->query("INSERT INTO $table_settings ( id, mail, sccsmsg, navtab ) VALUES ( '1', 'mail@website.com', 'Mail was sent succesfully', '0' )");
+	$wpdb->query("INSERT INTO $table_settings ( id, name, mail, sccsmsg, navtab ) VALUES ( '1', 'Companion Form 1', 'mail@website.com', 'Mail was sent succesfully', '0' )");
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
 
@@ -49,6 +50,7 @@ function cforms_install(){
 
 // Show the exisitin steps
 function cforms_steps() {
+
 	echo '<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">';
 
 	if (isset($_GET['editcform'])) {
@@ -60,35 +62,78 @@ function cforms_steps() {
 
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'cforms';
+		$table_settings = $wpdb->prefix . 'cformsettings';
 
-		$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error()); ?>
+		$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error());
+		$sqlcsets = $wpdb->get_results("SELECT * FROM $table_settings")or die(mysql_error());
 
-		<h2>Companion Forms
-		<a href="<?php echo $_SERVER['REQUEST_URI'];?>&addnew" class="add-new-h2">Add New Step</a></h2>
+		foreach ( $sqlcsets as $sqlcsets )  {
+			$name = $sqlcsets->name;
+		} ?>
 
+		<h2>Companion Forms</h2>
 		<hr>
-		<div id="welcome-panel" class="welcome-panel">
-			<h3><?=$form_name; ?></h3>
-			<i>Copy and paste this code on any page to display this plugin.</i><br>
-			<input type='text' value='[companionform]' style="width: 99%;"><br><br>
+		<style>
+			.companion a {
+				width: 100%;
+				display: block;
+				font-size: 15px;
+			}
+			.companion a.fullfalse {
+				display: inline-block;
+				width: auto;
+			}
+		</style>
+		<div id="welcome-panel" class="welcome-panel companion" style="overflow: hidden;">
+			<div style='width: 31%; float: left; margin: 1%;'>
+				<?php if(!isset($_GET['name'])) {
+					echo"<h2>".$name." <a href='admin.php?page=companionforms&name=edit' class='fullfalse'> &nbsp; <i class='fa fa-pencil'></i> Change Name</a></h2>";
+				} else {
+					echo"<form method='post' action='".$_SERVER['REQUEST_URI']."'>";
+					echo"<input type='text' name='formname' value='".$name."'> <input type='submit' name='submit' value='Save' class='button button-primary'><br>";
+					echo"</form>";
+				}
+				if(isset($_POST['submit'])) {
+					global $wpdb;
+					$table_settings = $wpdb->prefix . 'cformsettings';
+					$wpdb->query("UPDATE $table_settings SET name = '".$_POST['formname']."' WHERE id = '1'")or die(mysql_error());
+					echo "<i class='fa fa-check'></i> Name changed to: <b>".$_POST['formname']."</b>!<br>";
+				} ?>
+				<i>Copy and paste this code on any page to display this plugin.</i><br>
+				<input type='text' value='[companionform]' style="width: 99%;"><br><br>
+			</div>
+			<div style='width: 31%; float: left; margin: 1%;'>
+				<h3>Mail Settings</h3>
+				<i>Set up mail info ,auto-reply &amp; more</i><br>
+				<a href='admin.php?page=companionforms-settings&messageinfo'><i class='fa fa-envelope-o'></i> Message Content</a>
+				<a href='admin.php?page=companionforms-settings&messageinfo'><i class='fa fa-reply-all'></i> Auto Response</a>
+				<br><br>
+			</div>
+			<div style='width: 31%; float: left; margin: 1%;'>
+				<h3>General Options</h3>
+				<i>Turn on/off options.</i><br>
+				<a href='admin.php?page=companionforms-settings'><i class='fa fa-cog'></i> Settings</a>
+				<br><br>
+			</div>
+
+			<i class='fa fa-cube' style='position: absolute; bottom: -20px; right: -20px; font-size: 100px; opacity: 0.5; color: #DDD; transform: rotate(330deg);'></i>
 		</div>
 
-		<div id="welcome-panel" class="welcome-panel">
-			<h3>Mail Content</h3>
-			<i>What should we send you in the email?.</i><br>
-			<a href="admin.php?page=companionforms&messageinfo">Tell us here!</a>
-			<br><br>
-		</div>
+		<?php 
+		echo '<div id="welcome-panel" class="welcome-panel" style="overflow: hidden;">';
+			echo "<h2>Steps <a href='admin.php?page=companionforms&addnew' style='font-size: 15px;'> &nbsp; <i class='fa fa-plus'></i> Add New &nbsp; </a></h2>";
 
-		<?php echo '<div id="welcome-panel" class="welcome-panel">';
 			echo "<ol class='boxed_list'>";
 			foreach ( $sqlcforms as $sqlcforms )  {
 				echo'<li><b>'.$sqlcforms->title.'</b>
 
 				<a href="admin.php?page=companionforms&editcform='.$sqlcforms->id.'"><i class="fa fa-pencil"></i></a> | 
-				<a href="admin.php?page=companionforms&deletecform='.$sqlcforms->id.'" style="color: red;"><i class="fa fa-trash-o"></i></a></li><br>';
+				<a href="admin.php?page=companionforms&deletecform='.$sqlcforms->id.'" style="color: red;"><i class="fa fa-trash-o"></i></a></li>';
 			}
 			echo "</ol>";
+
+			echo"<i class='fa fa-exchange' style='position: absolute; bottom: -20px; right: -20px; font-size: 100px; opacity: 0.5; color: #DDD; transform: rotate(330deg);'></i>";
+
 		echo "</div>";
 	}
 }
@@ -150,8 +195,6 @@ add_option( 'companion_forms' );
 
 // Add a shortcode
 add_shortcode( 'companionform' , 'companion_forms' );
-
-
 
 //Add plugin to menu
 add_action( 'admin_menu', 'register_cforms_menu_page' );

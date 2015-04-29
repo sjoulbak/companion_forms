@@ -1,4 +1,6 @@
 <?php 
+	//Edit steps page
+
 	$id = $_GET['editcform'];
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'cforms';

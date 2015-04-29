@@ -1,5 +1,7 @@
-<h2>Add Step
-<a href="admin.php?page=companionforms-settings" class="add-new-h2">Settings</a></h2>
+<?php
+	//Add steps page
+?>
+<h2>Add Step</h2>
 <hr>
 <!-- Add New Step -->
 

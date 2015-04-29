@@ -10,10 +10,6 @@
 
 	cforms_add_step() ;
 
-} elseif (isset($_GET['messageinfo'])) { 
-
-	include('companion_header_info.php');
-
 } else { 
 
 	cforms_steps();
