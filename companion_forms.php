@@ -16,6 +16,10 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
+require_once('companion_functions.php');
+
+register_activation_hook( __FILE__, 'cforms_install' );
+
 // The Main function that displays the form
 function companion_forms() { 
 	// Include layout stuff (css, javascript)
@@ -41,7 +45,7 @@ function companion_forms() {
 		// if($_POST["login"] != "" && $_POST["email"] != "" && $_POST["totslot"] != "") { 
 			mail($emailadres, $headers, $message, $headers);
 			echo "<p class='succesMSG'>";
-				echo $succesmsg;
+			echo $succesmsg;
 			echo "</p>";
 		// }  else  { 
 		// 	echo"<p>Er is iets fout gegaan, waarschijnlijk bent u vergeten iets in te vullen.</p>"; 
@@ -61,7 +65,7 @@ function companion_forms() {
 
 			global $keylast;
 			$keylast = 0;
-			
+
 			foreach ( $sqlcforms as $sqlcforms )  {
 				$key++;
 				$keylast++;
@@ -101,8 +105,4 @@ function companion_forms() {
 		} ?>
         </div>
     </form>
-<?php }
-
-include('companion_functions.php');
-
-?>
+<?php } ?>
