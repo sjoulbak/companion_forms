@@ -14,6 +14,7 @@ function cforms_install(){
 
 	$table_name = $wpdb->prefix . 'cforms';
 	$table_settings = $wpdb->prefix . 'cformsettings';
+	$table_message = $wpdb->prefix . 'cformsmessage';
 
 	$sql = "CREATE TABLE IF NOT EXISTS $table_name (
 		id int(6) NOT NULL AUTO_INCREMENT,
@@ -27,9 +28,13 @@ function cforms_install(){
 		mail varchar(255) NOT NULL,
 		sccsmsg varchar(255) NOT NULL,
 		navtab int(1) NOT NULL,
+		mailcontent varchar(5000),
+		sender varchar(255),
+		header varchar(255),
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 
+	// set-up some basic info
 	$wpdb->query("INSERT INTO $table_settings ( id, mail, sccsmsg, navtab ) VALUES ( '1', 'mail@website.com', 'Mail was sent succesfully', '0' )");
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -68,13 +73,20 @@ function cforms_steps() {
 			<input type='text' value='[companionform]' style="width: 99%;"><br><br>
 		</div>
 
+		<div id="welcome-panel" class="welcome-panel">
+			<h3>Mail Content</h3>
+			<i>What should we send you in the email?.</i><br>
+			<a href="admin.php?page=companionforms&messageinfo">Tell us here!</a>
+			<br><br>
+		</div>
+
 		<?php echo '<div id="welcome-panel" class="welcome-panel">';
 			echo "<ol class='boxed_list'>";
 			foreach ( $sqlcforms as $sqlcforms )  {
 				echo'<li><b>'.$sqlcforms->title.'</b>
 
 				<a href="admin.php?page=companionforms&editcform='.$sqlcforms->id.'"><i class="fa fa-pencil"></i></a> | 
-				<a href="admin.php?page=companionforms&deletecform='.$sqlcforms->id.'"><i class="fa fa-trash-o"></i></a></li><br>';
+				<a href="admin.php?page=companionforms&deletecform='.$sqlcforms->id.'" style="color: red;"><i class="fa fa-trash-o"></i></a></li><br>';
 			}
 			echo "</ol>";
 		echo "</div>";

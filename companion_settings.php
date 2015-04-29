@@ -4,7 +4,8 @@ function copyToClipboard(text) {
 }
 </script>
 
-<h2>Companion Forms <?php _e( 'Settings', 'textdomain' ) ?></h2>
+<h2>Companion Forms Settings
+<a href="admin.php?page=companionforms&messageinfo" class="add-new-h2">Message Content</a></h2>
 <hr>
 <?php
 	global $wpdb;
