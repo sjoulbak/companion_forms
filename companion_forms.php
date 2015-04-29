@@ -16,11 +16,6 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-require_once('companion_functions.php');
-
-
-register_activation_hook( __FILE__, 'cforms_install' );
-
 // The Main function that displays the form
 function companion_forms() { 
 	// Include layout stuff (css, javascript)
@@ -29,11 +24,16 @@ function companion_forms() {
 	global $wpdb;
 	$table_nameSETS = $wpdb->prefix . 'cformsettings';
 
-	$setssql = mysql_query("SELECT * FROM $table_nameSETS WHERE id = '1'")or die(mysql_error());
-	$ressets = mysql_fetch_assoc($setssql);
+	$setssql = $wpdb->get_results("SELECT * FROM $table_nameSETS WHERE id = '1'")or die(mysql_error());
+	foreach ( $setssql as $setssql )  {
+		$tabinfo = $sqlcforms->navtabs;
+		$mail = $sqlcforms->mail;
+		$succesmsg = $sqlcforms->sccsmsg;
+	}
 
-	$functie = "Contact Formul";
-	$emailadres = $ressets['mail'];
+	// Header information
+	$functie = "Contact Form";
+	$emailadres = $mail;
 	$headers = "From: Test (test@test.com) \r\n"; 
 	$message = "Testing \n\n"; 
 
@@ -41,12 +41,12 @@ function companion_forms() {
 		// if($_POST["login"] != "" && $_POST["email"] != "" && $_POST["totslot"] != "") { 
 			mail($emailadres, $headers, $message, $headers);
 			echo "<p class='succesMSG'>";
-			echo $ressets['sccsmsg'];
+				echo $succesmsg;
 			echo "</p>";
 		// }  else  { 
 		// 	echo"<p>Er is iets fout gegaan, waarschijnlijk bent u vergeten iets in te vullen.</p>"; 
 		// } 
-	} 
+	}
 
 	?>
 	<form method='post' action='<?php $_SERVER['REQUEST_URI']; ?>'>
@@ -54,26 +54,24 @@ function companion_forms() {
 			<?php  global $wpdb;
 			$table_name = $wpdb->prefix . 'cforms';
 
-			$sqlcforms = mysql_query("SELECT * FROM $table_name")or die(mysql_error());
+			$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error());
 
 			global $key;
 			$key = 0;
 
 			global $keylast;
 			$keylast = 0;
-
-			$tabinfo = $ressets['navtabs'];
-
-			while($rescforms = mysql_fetch_assoc($sqlcforms)) {
+			
+			foreach ( $sqlcforms as $sqlcforms )  {
 				$key++;
 				$keylast++;
-				echo"<li><a href='#".$rescforms['id']."'>";
+				echo"<li><a href='#".$sqlcforms->id."'>";
 				if($tabinfo == 0 OR $tabinfo == 2) {
 					echo $key;
 					echo ". ";
 				} 
 				if($tabinfo == 0 OR $tabinfo == 1) {
-				 echo $rescforms['title'];
+				 echo $sqlcforms->title;
 				}
 				echo"</a></li>";
 
@@ -85,17 +83,17 @@ function companion_forms() {
         global $wpdb;
 		$table_name = $wpdb->prefix . 'cforms';
 
-		$sqlcforms = mysql_query("SELECT * FROM $table_name")or die(mysql_error());
+		$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error());
 
 		global $key;
 		$key = 0;
 
-        while($rescforms = mysql_fetch_assoc($sqlcforms)) {
+        foreach ( $sqlcforms as $sqlcforms ) {
         	$key++;
-            echo"<div id='".$rescforms['id']."'>
+            echo"<div id='".$sqlcforms->id."'>
             	<div class='inner_tabcontent'>
 
-            		".$rescforms['content']."
+            		".$sqlcforms->content."
 
 	            </div>
             	<p class='page_counter'>Step: ".$key." / ".$keylast."
@@ -104,5 +102,7 @@ function companion_forms() {
         </div>
     </form>
 <?php }
+
+include('companion_functions.php');
 
 ?>

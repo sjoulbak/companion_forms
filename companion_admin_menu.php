@@ -29,7 +29,7 @@ function copyToClipboard(text) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'cforms';
 
-		mysql_query("INSERT INTO $table_name (title, content) VALUES ('$_POST[title]', '$_POST[content]')")or die(mysql_error());
+		$wpdb->query("INSERT INTO $table_name (title, content) VALUES ('$_POST[title]', '$_POST[content]')")or die(mysql_error());
 	} ?>
 
 	<form method="post" action="<?php $_SERVER['REQUEST_URI']; ?>">

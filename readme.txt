@@ -1,7 +1,7 @@
 === Companion Forms ===
 Contributors: DakelNL, DrScavenger, Nielsdoorn
 Requires at least: 3.5
-Tested up to: 4.1
+Tested up to: 4.2.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ With companion form you can easily split your form in multiple tabs.
 
 == How to Install ==
 From your WordPress dashboard
-- Currently unable
+- Currently unavailable
 
 Download File
 1.Download Companion Forms.

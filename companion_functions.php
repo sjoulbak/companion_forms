@@ -8,38 +8,27 @@
 global $cforms_db_version;
 $cforms_db_version = '1.0';
 
-
 function cforms_install(){
-  global $wpdb;
+    global $wpdb;
 
-  $charset_collate = $wpdb->get_charset_collate();
+   	$charset_collate = $wpdb->get_charset_collate();
 
 	$table_name = $wpdb->prefix . 'cforms';
-	$table_settings = $wpdb->prefix . 'cformsettings';
 
 	$sql = "CREATE TABLE IF NOT EXISTS $table_name (
 		id int(6) NOT NULL AUTO_INCREMENT,
 		title varchar(255) NOT NULL,
-		content varchar(5000) DEFAULT '' NOT NULL,
-		UNIQUE KEY id (id)
-	) $charset_collate;";
-
-	$sql2 = "CREATE TABLE IF NOT EXISTS $table_settings (
-		id int(11) NOT NULL AUTO_INCREMENT,
-		mail varchar(255) NOT NULL,
-		sccsmsg varchar(255) NOT NULL,
-		navtab int(1) NOT NULL,
+		content varchar(255) DEFAULT '' NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
 	dbDelta( $sql );
-	dbDelta( $sql2 );
 
 	add_option( 'cforms_db_version', $cforms_db_version );
 }
 
-
+register_activation_hook( __FILE__, 'cforms_install' );
 
 
 // Show the exisitin steps
@@ -48,17 +37,17 @@ function cforms_steps() {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'cforms';
 
-	$sqlcforms = mysql_query("SELECT * FROM $table_name")or die(mysql_error());
+	$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error());
 
 	echo "<ol class='boxed_list'>";
-	while($rescforms = mysql_fetch_assoc($sqlcforms)) {
-		echo'<li><b>'.$rescforms['title'].'</b> 
+	foreach ( $sqlcforms as $sqlcforms )  {
+		echo'<li><b>'.$sqlcforms->title.'</b> 
 
-		<b><a href="admin.php?page=companionforms&mvup='.$rescforms['id'].'" title="move up"><i class="fa fa-angle-up"></i></a> 
-		<a href="admin.php?page=companionforms&mvdown='.$rescforms['id'].'" title="move down"><i class="fa fa-angle-down"></i></a></b><br>
+		<b><a href="admin.php?page=companionforms&mvup='.$sqlcforms->id.'" title="move up"><i class="fa fa-angle-up"></i></a> 
+		<a href="admin.php?page=companionforms&mvdown='.$sqlcforms->id.'" title="move down"><i class="fa fa-angle-down"></i></a></b><br>
 
-		<a href="admin.php?page=companionforms&editcform='.$rescforms['id'].'"><i class="fa fa-pencil"></i></a> | 
-		<a href="admin.php?page=companionforms&deletecform='.$rescforms['id'].'"><i class="fa fa-trash-o"></i></a></li><br>';
+		<a href="admin.php?page=companionforms&editcform='.$sqlcforms->id.'"><i class="fa fa-pencil"></i></a> | 
+		<a href="admin.php?page=companionforms&deletecform='.$sqlcforms->id.'"><i class="fa fa-trash-o"></i></a></li><br>';
 	}
 	echo "</ol>";
 
@@ -82,17 +71,6 @@ function cforms_move_up($id) {
 
 	echo "Ahh man, you broke it!<br>";
 	echo "You are moving #".$id." up";
-
-	$nextid = ($id-1);
-
-	//First clear the current ID
-	mysql_query("UPDATE $table_name SET id='0' WHERE id=$id")or die(mysql_error());
-
-	//Then Move the next item up
-	mysql_query("UPDATE $table_name SET id=$id WHERE id=$nextid")or die(mysql_error());
-
-	//Then Move current down
-	mysql_query("UPDATE $table_name SET id=$nextid WHERE id=$id")or die(mysql_error());
 }
 
 function cforms_move_down($id) {
@@ -102,17 +80,6 @@ function cforms_move_down($id) {
 	echo "Ahh man, you broke it!<br>";
 	echo "You are moving #".$id." down";
 
-	$nextid = ($id+1);
-
-	//First clear the current ID
-	mysql_query("UPDATE $table_name SET id='0' WHERE id=$id")or die(mysql_error());
-
-	//Then Move the next item up
-	mysql_query("UPDATE $table_name SET id=$id WHERE id=$nextid")or die(mysql_error());
-
-	//Then Move current down
-	mysql_query("UPDATE $table_name SET id=$nextid WHERE id=$id")or die(mysql_error());
-
 }
 
 //Edit steps
@@ -120,21 +87,21 @@ function cforms_edit_step($id) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'cforms';
 
-	$sqlcforms = mysql_query("SELECT * FROM $table_name WHERE id=$id")or die(mysql_error());
-	$rescforms = mysql_fetch_assoc($sqlcforms);
+	$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name WHERE id=$id")or die(mysql_error());
+	foreach ( $sqlcforms as $sqlcforms ) {
 
 	echo"<hr>";
-	echo"<h3>Edit <i>".$rescforms['title']."</i></h3>";
+	echo"<h3>Edit <i>".$sqlcforms->title."</i></h3>";
 
 	echo"<form method='post' action='".$_SERVER['REQUEST_URI']."'>";
 
-	echo"<input type='text' name ='title' value='".$rescforms['title']."' style='width: 100%;'><br>";
-	echo"<textarea name ='content' value='' placeholder='voeg een formulier toe' style='height: 400px; width: 100%;'>".$rescforms['content']."</textarea>";
-	echo submit_button();
+   		echo"<input type='text' name ='title' value='".$sqlcforms->title."' style='width: 100%;'><br>";
+   		echo"<textarea name ='content' value='' placeholder='voeg een formulier toe' style='height: 400px; width: 100%;'>".$sqlcforms->content."</textarea>";
+   		echo submit_button();
 
-  echo"</form>";
+   	echo"</form>";
 
-  if(isset($_POST['submit'])) {
+   	if(isset($_POST['submit'])) {
 		if(!isset($_POST['title']) || trim($_POST['title']) == '') {
 			echo '<div id="message" class="error"><p><b>Title</b> cannot be empty!</p></div>';
 		} else {
@@ -143,7 +110,9 @@ function cforms_edit_step($id) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'cforms';
 
-		mysql_query("UPDATE $table_name SET title='$_POST[title]', content='$_POST[content]' WHERE id=$id")or die(mysql_error());
+		$wpdb->query("UPDATE $table_name SET title='$_POST[title]', content='$_POST[content]' WHERE id=$id")or die(mysql_error());
+	}
+
 	}
 }
 
@@ -151,30 +120,41 @@ function cforms_edit_step($id) {
 function cforms_delete_step($id) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'cforms';
-	$sqlcforms = mysql_query("DELETE FROM $table_name WHERE id=$id")or die(mysql_error());
+	$wpdb->query("DELETE FROM $table_name WHERE id=$id")or die(mysql_error());
 }
+echo'<style>
+	.cforms_popup {
+		position: fixed;
+		background: #FFF;
+		border-radius: 5px;
+		box-shadow: 1px 1px 8px #424242;
+		top: 50px;
+		left: calc(50% - 125px);
+		width: 250px;
+		padding: 20px;
+		z-index: 99999;
+	}
+</style>';
 
 if (isset($_GET['deletecform'])) {
-	// Include layout stuff (css, javascript)
-	include('layout.php');
-
 	echo '<div class="cforms_popup">';
-	echo "<b>You are about to delete something!</b><br>";
-	echo "Are you sure?<br><br>";
-	echo'<a href="admin.php?page=companionforms&true-delete='.$_GET['deletecform'].'" class="button button-primary">Yes!</a>';
-	echo'&nbsp;&nbsp;<a href="admin.php?page=companionforms" class="button">Neh</a>';
+		echo "<b>You are about to delete something!</b><br>";
+		echo "Are you sure?<br><br>";
+	    echo'<a href="admin.php?page=companionforms&true-delete='.$_GET['deletecform'].'" class="button button-primary">Yes!</a>';
+	    echo'&nbsp;&nbsp;<a href="admin.php?page=companionforms" class="button">Neh</a>';
 	echo '</div>';
 }
 if (isset($_GET['true-delete'])) {
 	cforms_delete_step($_GET['true-delete']);
 }
 
-
 // Now we set that function up to execute
 add_option( 'companion_forms' );
 
 // Add a shortcode
 add_shortcode( 'companionform' , 'companion_forms' );
+
+
 
 //Add plugin to menu
 add_action( 'admin_menu', 'register_cforms_menu_page' );
@@ -188,20 +168,20 @@ function register_cforms_menu_page(){
 // Create Pages
 function cforms_menu_page(){
 	echo '<div class="wrap">';
-	include('companion_admin_menu.php');
+		include('companion_admin_menu.php');
 	echo '</div>';
 }
 
 function cforms_settings_page(){
 	echo '<div class="wrap">';
-	include('companion_settings.php');
+		include('companion_settings.php');
 	echo '</div>';
 }
 
 
 function cforms_add_page(){
 	echo '<div class="wrap">';
-	include('companion_forms_add.php');
+		include('companion_forms_add.php');
 	echo '</div>';
 }
 
