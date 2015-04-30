@@ -26,9 +26,13 @@ function companion_forms() {
 	include('layout.php');
 
 	global $wpdb;
-	$table_nameSETS = $wpdb->prefix . 'cformsettings';
 
+	$table_name = $wpdb->prefix . 'cforms';
+	$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error());
+
+	$table_nameSETS = $wpdb->prefix . 'cformsettings';
 	$setssql = $wpdb->get_results("SELECT * FROM $table_nameSETS WHERE id = '1'")or die(mysql_error());
+
 	foreach ( $setssql as $setssql )  {
 		$tabinfo = $setssql->navtab;
 		$mail = $setssql->mail;
@@ -93,53 +97,89 @@ function companion_forms() {
 
 	?>
 	<form method='post' action='<?php $_SERVER['REQUEST_URI']; ?>'>
-		<ul class="tabs top_page_navigation" data-persist="true">
-			<?php  global $wpdb;
-			$table_name = $wpdb->prefix . 'cforms';
+		<ul class="tabs top_page_navigation">
+			<?php
 
-			$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error());
-
-			global $key;
 			$key = 0;
-
-			global $keylast;
 			$keylast = 0;
 
 			foreach ( $sqlcforms as $sqlcforms )  {
 				$key++;
 				$keylast++;
+
+				$width = 100/$keylast;
+
 				echo"<li><a href='#".$sqlcforms->id."'>";
 				if($tabinfo == 0 OR $tabinfo == 2) {
-					echo $key;
-					echo ". ";
+					echo $key.". ";
 				} 
 				if($tabinfo == 0 OR $tabinfo == 1) {
 				 echo $sqlcforms->title;
 				}
 				echo"</a></li>";
-
-			} ?>
+			} 
+		?>
+		<style>
+		ul.top_page_navigation li {
+			width: <?=$width;?>%;
+		}
+		ul.top_page_navigation li a {
+			width: 100%;
+		}
+		</style>
         </ul>
-
         <div class="tabcontents">
-        <?php 
-        global $wpdb;
-		$table_name = $wpdb->prefix . 'cforms';
+        	<?php 
 
-		$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error());
+			$table_name = $wpdb->prefix . 'cforms';
+			$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error());
 
-		global $key;
-		$key = 0;
+			$key = 0;
 
-        foreach ( $sqlcforms as $sqlcforms ) {
-        	$key++;
+	        foreach ( $sqlcforms as $sqlcforms ) {
+	        	$key++;
+
             echo"<div id='".$sqlcforms->id."'>
             	<div class='inner_tabcontent'>
             		<input type='hidden' name='".$key."' value='".$sqlcforms->title."'>
             		".$sqlcforms->content."
             		<input type='hidden' name='break".$key."' value='----------'>
 	            </div>
-            	<p class='page_counter'>Step: ".$key." / ".$keylast."
+	            <ul class='tabs bottom_page_navigation'>";
+					$table_name = $wpdb->prefix . 'cforms';
+
+					$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error());
+
+					$counting = 0;
+
+					foreach ( $sqlcforms as $sqlcforms )  {
+						$counting++;
+						echo"<a href='#".$sqlcforms->id."'";
+
+						if($counting <= $key - 2) {
+							echo" style='display: none;'";
+						}
+						else if($counting == $key) {
+							echo" style='display: none;'";
+						} 
+						else if($counting >= $key + 2) {
+							echo" style='display: none;'";
+						}
+						echo ">";
+
+						if($counting <= $key - 1) {
+							echo" <i class='fa fa-angle-left'></i> ";
+						} 
+						echo $sqlcforms->title;
+
+						if($counting >= $key + 1) {
+							echo" <i class='fa fa-angle-right'></i> ";
+						} 
+						echo"</a>";
+
+					}
+		        echo"</ul>
+            	<p class='page_counter'>".$key."/".$keylast."</p>
             </div>";
 		} ?>
         </div>

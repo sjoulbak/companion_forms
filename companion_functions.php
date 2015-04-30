@@ -153,6 +153,8 @@ function cforms_add_step() {
 }
 
 function addForms() { ?>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
 	<i>required to make this field work! <b title="Because it's still BETA, these fields are required or your form won't work at all." style="text-decoration: underline; cursor: pointer;">?</b></i><br>
 	<a onClick="add('<label>Name:</label>\n<input type=\'text\' name=\'sender\'><br>\n\n')" class="button button-small"><i class="fa fa-user"></i> Name</a>
 	<a onClick="add('<label>Email:</label>\n<input type=\'email\' name=\'email\'><br>\n\n')" class="button button-small"><i class="fa fa-envelope-o"></i> E-Mail Address</a>
