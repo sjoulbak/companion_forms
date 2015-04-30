@@ -13,6 +13,7 @@ foreach ( $sqlcforms as $sqlcforms ) {
 
 	$mail = $sqlcforms->mail;
 	$sender = $sqlcforms->sender;
+	$sender_name = $sqlcforms->sender_name;
 	$header = $sqlcforms->header;
 
 	if ($sqlcforms->mailcontent != NULL) {
@@ -37,9 +38,10 @@ This mail was sent using Companion Forms Wordpress Plugin";
 
 		$wpdb->query("UPDATE $table_name SET 
 			mail='$_POST[mail]', 
-			sender='$_POST[sender]', 
+			sender='$_POST[sender]',
+			sender_name='$_POST[sender_name]', 
 			header='$_POST[header]',
-			mailcontent='$_POST[mailcontent]',
+			mailcontent='$_POST[mailcontent]'
 		WHERE id = $id")or die(mysql_error());
 	} ?>
 
@@ -48,27 +50,35 @@ This mail was sent using Companion Forms Wordpress Plugin";
 
 		<table>
 			<tr>
-				<td width="100">
+				<td width="150">
 					<b>To:</b>
 				</td>
-				<td width="200">
+				<td width="600">
 					<input type='email' name='mail' placeholder='Field Name' value="<?=$mail;?>">
 				</td>
 			</tr>
 			<tr>
-				<td width="75">
-					<b>From:</b>
+				<td width="150">
+					<b>From (name):</b>
 				</td>
-				<td width="200">
-					<input type='text' name='sender' placeholder='Field Name' value="<?=$sender;?>">
+				<td width="600">
+					<input type='text' name='sender_name' placeholder='Field Name' value="<?=$sender_name;?>"><i style='font-size: 12px;'>Fill in the field name.</i>
 				</td>
 			</tr>
 			<tr>
-				<td width="75">
+				<td width="150">
+					<b>From (email):</b>
+				</td>
+				<td width="600">
+					<input type='text' name='sender' placeholder='Field Name' value="<?=$sender;?>"><i style='font-size: 12px;'>Fill in the field name.</i>
+				</td>
+			</tr>
+			<tr>
+				<td width="150">
 					<b>Subject:</b>
 				</td>
-				<td width="200">
-					<input type='text' name='header' placeholder='Field Name' value="<?=$header;?>">
+				<td width="600">
+					<input type='text' name='header' placeholder='Field Name' value="<?=$header;?>"><i style='font-size: 12px;'>Fill in the field name.</i>
 				</td>
 			</tr>
 		</table>

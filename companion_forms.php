@@ -33,23 +33,30 @@ function companion_forms() {
 		$tabinfo = $setssql->navtab;
 		$mail = $setssql->mail;
 		$succesmsg = $setssql->sccsmsg;
+		$sender = $setssql->sender;
+		$sender_name = $setssql->sender_name;
+		$header = $setssql->header;
 	}
 
-	// Header information
-	$functie = "Contact Form";
-	$emailadres = $mail;
-	$headers = "From: Test (test@test.com) \r\n"; 
-	$message = "Testing \n\n"; 
-
 	if(isset($_POST['submit'])){ 
-		// if($_POST["login"] != "" && $_POST["email"] != "" && $_POST["totslot"] != "") { 
-			mail($emailadres, $headers, $message, $headers);
+
+		// Header information
+		$name 			= $_POST[$sender_name];
+		$email 			= $_POST[$sender];
+		$message 		= "Test";
+		$formcontent	="From: $name \n Message: $message";
+		$recipient 		= $mail;
+		$subject 		= $_POST[$header];
+		$mailheader 	= "From: $email \r\n";
+
+		if($name != "" && $email != "" && $subject != "") { 
+			mail($recipient, $subject, $formcontent, $mailheader) or die("Error!");
 			echo "<p class='succesMSG'>";
 			echo $succesmsg;
 			echo "</p>";
-		// }  else  { 
-		// 	echo"<p>Er is iets fout gegaan, waarschijnlijk bent u vergeten iets in te vullen.</p>"; 
-		// } 
+		}  else  { 
+			echo"<p>Er is iets fout gegaan, waarschijnlijk bent u vergeten iets in te vullen.</p>"; 
+		} 
 	}
 
 	?>
