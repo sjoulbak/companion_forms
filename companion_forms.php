@@ -33,18 +33,34 @@ function companion_forms() {
 		$tabinfo = $setssql->navtab;
 		$mail = $setssql->mail;
 		$succesmsg = $setssql->sccsmsg;
+		$failmsg = $setssql->failmsg;
 		$sender = $setssql->sender;
 		$sender_name = $setssql->sender_name;
 		$header = $setssql->header;
+		$mailcontent = $setssql->mailcontent;
 	}
 
 	if(isset($_POST['submit'])){ 
+		$fields = array();
+		if (isset($_POST) && !empty($_POST)) {
+		    foreach ($_POST as $name => $val) {
+		        //Do not send the submit, subject and email value (these are send in the header)
+		        if ($name != 'submit' && $name != $header && $name != $sender && $val != '----------') {
+		        	$fields[] = $name. ": " .$val;
+		        } elseif ($val == '----------') {
+		        	$fields[] = $val;
+		        	$fields[] = "\n";
+		        }
+		    }
+		}
+
+		$formfields = implode("\n", $fields);
 
 		// Header information
 		$name 			= $_POST[$sender_name];
 		$email 			= $_POST[$sender];
-		$message 		= "Test";
-		$formcontent	="From: $name \n Message: $message";
+		$message 		= $_POST[$sender_name].": ".$_POST[$header]. "\n\n" .$formfields. " " .$mailcontent;
+		$formcontent	= $message;
 		$recipient 		= $mail;
 		$subject 		= $_POST[$header];
 		$mailheader 	= "From: $email \r\n";
@@ -55,7 +71,9 @@ function companion_forms() {
 			echo $succesmsg;
 			echo "</p>";
 		}  else  { 
-			echo"<p>Er is iets fout gegaan, waarschijnlijk bent u vergeten iets in te vullen.</p>"; 
+			echo "<p class='errorMSG'>";
+			echo $failmsg;
+			echo "</p>";
 		} 
 	}
 
@@ -103,9 +121,9 @@ function companion_forms() {
         	$key++;
             echo"<div id='".$sqlcforms->id."'>
             	<div class='inner_tabcontent'>
-
+            		<input type='hidden' name='".$key."' value='".$sqlcforms->title."'>
             		".$sqlcforms->content."
-
+            		<input type='hidden' name='break".$key."' value='----------'>
 	            </div>
             	<p class='page_counter'>Step: ".$key." / ".$keylast."
             </div>";

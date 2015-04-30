@@ -14,7 +14,7 @@
 				echo '<div id="message" class="error"><p><b>Email</b> cannot be blank!</p></div>';
 			} else {
 				echo '<div id="message" class="updated"><p>Jeej, you\'ve updated the settings!</div>';
-				$wpdb->query("UPDATE $table_name SET mail='$_POST[email]', sccsmsg='$_POST[succesmsg]', navtab='$_POST[navtabs]' WHERE id = '1'")or die(mysql_error());
+				$wpdb->query("UPDATE $table_name SET mail='$_POST[email]', sccsmsg='$_POST[succesmsg]', failmsg='$_POST[failmsg]', navtab='$_POST[navtabs]' WHERE id = '1'")or die(mysql_error());
 			}
 		}
 
@@ -22,6 +22,7 @@
 		foreach ( $setssql as $setssql )  {
 			$mail = $setssql->mail;
 			$sccsmsg = $setssql->sccsmsg;
+			$failmsg = $setssql->failmsg;
 		}
 
 	?>
@@ -43,6 +44,14 @@
 					</td>
 					<td width="200">
 						<input type="text" placeholder="Your mail has been send" name="succesmsg" value="<?php echo $sccsmsg; ?>" style="width: 100%;">
+					</td>
+				</tr>
+				<tr>
+					<td width="75">
+						<b>Error Message:</b>
+					</td>
+					<td width="200">
+						<input type="text" placeholder="Have you filled in all required fields?" name="failmsg" value="<?php echo $failmsg; ?>" style="width: 100%;">
 					</td>
 				</tr>
 				<tr>

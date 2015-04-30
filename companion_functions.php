@@ -164,6 +164,7 @@ function addForms() { ?>
 	<a onClick="add('<label>LABEL</label>\n<input type=\'email\' name=\'NAAM\'><br>\n\n')" class="button button-small"><i class="fa fa-envelope-o"></i> Email Input</a>
 	<a onClick="add('<label>LABEL</label>\n<input type=\'checkbox\' name=\'NAAM\'><br>\n\n')" class="button button-small"><i class="fa fa-check-square-o"></i> Checkbox</a>
 	<a onClick="add('<label>LABEL</label>\n<input type=\'radio\' name=\'NAAM\'><br>\n\n')" class="button button-small"><i class="fa fa-dot-circle-o"></i> Radio</a>
+	<a onClick="add('<label>LABEL</label>\n<select name=\'NAAM\'>\n\n<option value=\'0\'>Optie 1</option>\n<option value=\'1\'>Optie 2</option>\n\n</select><br>\n\n')" class="button button-small"><i class="fa fa-angle-down"></i> Select</a>
 
 	<hr>
 	<i>Send button, recommended to place at the end of your form</i><br>
