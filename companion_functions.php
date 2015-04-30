@@ -31,6 +31,7 @@ function cforms_install(){
 		navtab int(1) NOT NULL,
 		mailcontent varchar(5000),
 		sender varchar(255),
+		sender_name varchar(255),
 		header varchar(255),
 		UNIQUE KEY id (id)
 	) $charset_collate;";
@@ -149,13 +150,25 @@ function cforms_add_step() {
 }
 
 function addForms() { ?>
-	<a onClick="add('<label>LABEL</label>\n<input type=\'text\' name=\'NAAM\'><br>\n\n')" class="button button-small">Text Input</a>
-	<a onClick="add('<label>LABEL</label>\n<input type=\'email\' name=\'NAAM\'><br>\n\n')" class="button button-small">Email Input</a>
-	<a onClick="add('<label>LABEL</label>\n<input type=\'checkbox\' name=\'NAAM\'><br>\n\n')" class="button button-small">Checkbox</a>
-	<a onClick="add('<label>LABEL</label>\n<input type=\'radio\' name=\'NAAM\'><br>\n\n')" class="button button-small">Radio</a>
+	<i>required to make this field work! <b title="Because it's still BETA, these fields are required or your form won't work at all." style="text-decoration: underline; cursor: pointer;">?</b></i><br>
+	<a onClick="add('<label>Name:</label>\n<input type=\'text\' name=\'sender\'><br>\n\n')" class="button button-small"><i class="fa fa-user"></i> Name</a>
+	<a onClick="add('<label>Email:</label>\n<input type=\'email\' name=\'email\'><br>\n\n')" class="button button-small"><i class="fa fa-envelope-o"></i> E-Mail Address</a>
+	<br>
+	<i>One of these is required!</i><br>
+	<a onClick="add('<label>Subject:</label>\n<input type=\'text\' name=\'subject\'><br>\n\n')" class="button button-small" title="Let the user decide what the subject should be"><i class="fa fa-info"></i> Subject Input (?)</a>
+	<a onClick="add('<input type=\'hidden\' name=\'subject\' value=\'FILL IN A SUBJECT HERE\'><br>\n\n')" class="button button-small" title="this subject title can not be changed by the user!"><i class="fa fa-info"></i> Subject Sticky (?)</a>
 
 	<hr>
-	<a onClick="add('<input type=\'submit\' name=\'submit\' value=\'Submit\'><br>\n\n')" class="button button-small">Submit Button</a>
+	<i>Additional Forms</i><br>
+	<a onClick="add('<label>LABEL</label>\n<input type=\'text\' name=\'NAAM\'><br>\n\n')" class="button button-small"><i class="fa fa-font"></i> Text Input</a>
+	<a onClick="add('<label>LABEL</label>\n<input type=\'email\' name=\'NAAM\'><br>\n\n')" class="button button-small"><i class="fa fa-envelope-o"></i> Email Input</a>
+	<a onClick="add('<label>LABEL</label>\n<input type=\'checkbox\' name=\'NAAM\'><br>\n\n')" class="button button-small"><i class="fa fa-check-square-o"></i> Checkbox</a>
+	<a onClick="add('<label>LABEL</label>\n<input type=\'radio\' name=\'NAAM\'><br>\n\n')" class="button button-small"><i class="fa fa-dot-circle-o"></i> Radio</a>
+	<a onClick="add('<label>LABEL</label>\n<select name=\'NAAM\'>\n\n<option value=\'0\'>Optie 1</option>\n<option value=\'1\'>Optie 2</option>\n\n</select><br>\n\n')" class="button button-small"><i class="fa fa-angle-down"></i> Select</a>
+
+	<hr>
+	<i>Send button, recommended to place at the end of your form</i><br>
+	<a onClick="add('<input type=\'submit\' name=\'submit\' value=\'Send Email\'><br>\n\n')" class="button button-small"><i class="fa fa-check-circle"></i> Submit Button</a>
 <? }
 
 // Deletes steps

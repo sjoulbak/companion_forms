@@ -33,23 +33,48 @@ function companion_forms() {
 		$tabinfo = $setssql->navtab;
 		$mail = $setssql->mail;
 		$succesmsg = $setssql->sccsmsg;
+		$failmsg = $setssql->failmsg;
+		$sender = $setssql->sender;
+		$sender_name = $setssql->sender_name;
+		$header = $setssql->header;
+		$mailcontent = $setssql->mailcontent;
 	}
 
-	// Header information
-	$functie = "Contact Form";
-	$emailadres = $mail;
-	$headers = "From: Test (test@test.com) \r\n"; 
-	$message = "Testing \n\n"; 
-
 	if(isset($_POST['submit'])){ 
-		// if($_POST["login"] != "" && $_POST["email"] != "" && $_POST["totslot"] != "") { 
-			mail($emailadres, $headers, $message, $headers);
+		$fields = array();
+		if (isset($_POST) && !empty($_POST)) {
+		    foreach ($_POST as $name => $val) {
+		        //Do not send the submit, subject and email value (these are send in the header)
+		        if ($name != 'submit' && $name != $header && $name != $sender && $val != '----------') {
+		        	$fields[] = $name. ": " .$val;
+		        } elseif ($val == '----------') {
+		        	$fields[] = $val;
+		        	$fields[] = "\n";
+		        }
+		    }
+		}
+
+		$formfields = implode("\n", $fields);
+
+		// Header information
+		$name 			= $_POST[$sender_name];
+		$email 			= $_POST[$sender];
+		$message 		= $_POST[$sender_name].": ".$_POST[$header]. "\n\n" .$formfields. " " .$mailcontent;
+		$formcontent	= $message;
+		$recipient 		= $mail;
+		$subject 		= $_POST[$header];
+		$mailheader 	= "From: $email \r\n";
+
+		if($name != "" && $email != "" && $subject != "") { 
+			mail($recipient, $subject, $formcontent, $mailheader) or die("Error!");
 			echo "<p class='succesMSG'>";
 			echo $succesmsg;
 			echo "</p>";
-		// }  else  { 
-		// 	echo"<p>Er is iets fout gegaan, waarschijnlijk bent u vergeten iets in te vullen.</p>"; 
-		// } 
+		}  else  { 
+			echo "<p class='errorMSG'>";
+			echo $failmsg;
+			echo "</p>";
+		} 
 	}
 
 	?>
@@ -96,9 +121,9 @@ function companion_forms() {
         	$key++;
             echo"<div id='".$sqlcforms->id."'>
             	<div class='inner_tabcontent'>
-
+            		<input type='hidden' name='".$key."' value='".$sqlcforms->title."'>
             		".$sqlcforms->content."
-
+            		<input type='hidden' name='break".$key."' value='----------'>
 	            </div>
             	<p class='page_counter'>Step: ".$key." / ".$keylast."
             </div>";
