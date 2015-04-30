@@ -38,6 +38,8 @@ function companion_forms() {
 		$sender_name = $setssql->sender_name;
 		$header = $setssql->header;
 		$mailcontent = $setssql->mailcontent;
+		$CC = $setssql->CC;
+		$CC_text = $setssql->CC_text;
 	}
 
 	if(isset($_POST['submit'])){ 
@@ -70,11 +72,23 @@ function companion_forms() {
 			echo "<p class='succesMSG'>";
 			echo $succesmsg;
 			echo "</p>";
+
+			if($CC == 0) {
+				$email2 		= $mail;
+				$message2 		= $CC_text;
+				$recipient2 	= $mail;
+				$subject2 		= "Autoreply: ".$_POST[$header];
+				$mailheader2 	= "From: $email2 \r\n";
+
+				mail($recipient2, $subject2, $message2, $mailheader2) or die("Error!");
+			}
+
 		}  else  { 
 			echo "<p class='errorMSG'>";
 			echo $failmsg;
 			echo "</p>";
 		} 
+
 	}
 
 	?>

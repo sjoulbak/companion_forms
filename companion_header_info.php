@@ -15,18 +15,26 @@ foreach ( $sqlcforms as $sqlcforms ) {
 	$sender = $sqlcforms->sender;
 	$sender_name = $sqlcforms->sender_name;
 	$header = $sqlcforms->header;
+	$CC =  $sqlcforms->CC;
 
 	if ($sqlcforms->mailcontent != NULL) {
 		$mailcontent = $sqlcforms->mailcontent;
 	} else {
-		$mailcontent = "Someone has sent you an email:
-
-Message Content:
-
-
-----------
+		$mailcontent = "----------
 This mail was sent using Companion Forms Wordpress Plugin";
 	}
+
+	if ($sqlcforms->CC_text != NULL) {
+		$CC_text = $sqlcforms->CC_text;
+	} else {
+		$CC_text = "Thank you for emailing us,
+
+We will try to respond to you as soon as possible!
+
+Sincerely,
+
+Companion Forms";}
+
 } ?>
 <form method='post' action='<?=$_SERVER['REQUEST_URI'];?>'>
 	<?php if(isset($_POST['submit'])) {
@@ -41,7 +49,9 @@ This mail was sent using Companion Forms Wordpress Plugin";
 			sender='$_POST[sender]',
 			sender_name='$_POST[sender_name]', 
 			header='$_POST[header]',
-			mailcontent='$_POST[mailcontent]'
+			mailcontent='$_POST[mailcontent]',
+			CC='$_POST[CC]',
+			CC_text='$_POST[CC_text]'
 		WHERE id = $id")or die(mysql_error());
 	} ?>
 
@@ -81,6 +91,17 @@ This mail was sent using Companion Forms Wordpress Plugin";
 					<input type='text' name='header' placeholder='Field Name' value="<?=$header;?>"><i style='font-size: 12px;'>Fill in the field name.</i>
 				</td>
 			</tr>
+				<tr>
+					<td width="150">
+						<b>Send Auto Reply:</b>
+					</td>
+					<td width="600">
+						<select name="CC">
+							<option value="0">Yes</option>
+							<option value="1">No</option>
+						</select>
+					</td>
+				</tr>
 		</table>
 
 		<br>
@@ -88,12 +109,15 @@ This mail was sent using Companion Forms Wordpress Plugin";
 
 	<div id='welcome-panel' class='welcome-panel'>
 		<div style='width: 48%; float: left; margin: 1%;'>
-			<b style='text-transform: uppercase;'>Message</b> <i style='color: #424242;'> fill in all the info shown in the email</i><br>
+			<b style='text-transform: uppercase;'>Signature</b> <i style='color: #424242;'> This will be show at the bottom of the email</i><br>
 			<textarea name="mailcontent" id="content" style="height: 500px; width: 99%; float: left;" placeholder="Message"><?=$mailcontent;?></textarea><br>
 		</div>
 
 		<div style='width: 48%; float: left; margin: 1%;'>
-			<b style='text-transform: uppercase;'>Exisiting Fields</b> <i style='color: #424242;'> these are the fields shown in your form</i><br>
+			<?php if($CC == 0) { ?>
+				<b style='text-transform: uppercase;'>Reply Mail</b> <i style='color: #424242;'> What should we sent as a reply?</i><br>
+				<textarea style='height: 500px; width: 100%;' name='CC_text'><?=$CC_text; ?></textarea>
+			<? }; ?>
 		</div>
 	</div>
 

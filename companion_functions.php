@@ -28,7 +28,10 @@ function cforms_install(){
 		name varchar(255) NOT NULL,
 		mail varchar(255) NOT NULL,
 		sccsmsg varchar(255) NOT NULL,
+		failmsg varchar(255) NOT NULL,
 		navtab int(1) NOT NULL,
+		CC int(1),
+		CC_text varchar(255),
 		mailcontent varchar(5000),
 		sender varchar(255),
 		sender_name varchar(255),
@@ -37,7 +40,7 @@ function cforms_install(){
 	) $charset_collate;";
 
 	// set-up some basic info
-	$wpdb->query("INSERT INTO $table_settings ( id, name, mail, sccsmsg, navtab ) VALUES ( '1', 'Companion Form 1', 'mail@website.com', 'Mail was sent succesfully', '0' )");
+	$wpdb->query("INSERT INTO $table_settings ( id, name, mail, sccsmsg, failmsg, navtab ) VALUES ( '1', 'Companion Form 1', 'mail@website.com', 'Mail was sent succesfully', 'Oops! Your mail hasnt been send', '0' )");
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
 
