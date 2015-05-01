@@ -30,6 +30,7 @@ function cforms_install(){
 		sccsmsg varchar(255) NOT NULL,
 		failmsg varchar(255) NOT NULL,
 		navtab int(1) NOT NULL,
+		bottom int(1),
 		CC int(1),
 		CC_text varchar(255),
 		mailcontent varchar(5000),

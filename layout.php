@@ -1,49 +1,107 @@
 <style>
 ul.top_page_navigation {
 	background: #F5F5F5;
-	display: inline-block;
-	padding: 10px 0px;
+	display: block;
 	width: 100%;
 	margin-left: 0px;
+	margin-bottom: 25px;
 	border: 1px solid #DDD;
-	border-bottom: 0px;
+	border-radius: 10px;
+	overflow: hidden;
 }
 ul.top_page_navigation li {
 	float: left;
 	list-style-type: none;
+	display: block;
 }
 ul.top_page_navigation li a {
-	padding: 10px 15px;
+	padding: 10px 0px;
 	border-right: 1px solid #DDD;
 	color: #424242;
+	display: block;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
 }
 ul.top_page_navigation li a:hover {
-    text-decoration: none;
-    color: #95C93E;
-}
-ul.top_page_navigation li.selected a {
     background: #FFF;
     color: #424242;
-    padding-bottom: 12px;
+	border-left: 1px solid #DDD;
+	margin-left: -1px;
+    text-decoration: none;
 }
+@media screen and (max-width: 900px) {
+	ul.top_page_navigation li {
+		width: 100%;
+		display: block;
+		float: none;
+	}
+	ul.top_page_navigation li a {
+		border-right-width: 0px;
+	}	
+}
+.bottom_page_navigation {
+	text-align: center;
+	position: relative;
+	z-index: 100;
+}
+.bottom_page_navigation a {
+	display: inline-block;
+	text-decoration: none;
+	font-size: 13px;
+	line-height: 26px;
+	height: 28px;
+	margin: 0;
+	padding: 0 10px 1px;
+	cursor: pointer;
+	border-width: 1px;
+	border-style: solid;
+	-webkit-appearance: none;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	white-space: nowrap;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	color: #555;
+	border-color: #cccccc;
+	background: #f7f7f7;
+	-webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba( 0, 0, 0, 0.08 );
+	box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba( 0, 0, 0, 0.08 );
+	vertical-align: top;
+	margin: 0px 5px;
+}
+
 .tabcontents{
-	border: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
 	padding: 10px;
+	position: relative;
+	overflow: hidden;
+	width: calc(100% - 20px);
 }
 .inner_tabcontent {
 	padding-bottom: 25px;
 }
 .page_counter {
-	text-align: right;
+	right: -14px;
 	opacity: 0.5;
+	font-size: 55px;
+	font-weight: bold;
+	bottom: -18px;
+	position: absolute;
+	color: #DDD;
+	text-shadow: 1px 1px 8px #F5F5F5;
 }
-.half {
-	width: 50%;
-	float: left;
-}
+
 .succesMSG {
 	border: 1px solid #DDD;
 	border-left: 3px solid green;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+.errorMSG {
+	border: 1px solid #DDD;
+	border-left: 3px solid red;
 	padding: 10px;
 	margin-bottom: 10px;
 }

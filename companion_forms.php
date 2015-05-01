@@ -4,7 +4,7 @@
 	Plugin URI: https://github.com/DakelNL/companion_forms
 	Description: Create a multi page form and add it to any page using shortcodes.
 	Author: Papin Schipper
-	Version: 0.2.1
+	Version: 0.6.6
 	Author URI: http://papinschipper.nl
 	License: GPL2
 */
@@ -44,6 +44,8 @@ function companion_forms() {
 		$mailcontent = $setssql->mailcontent;
 		$CC = $setssql->CC;
 		$CC_text = $setssql->CC_text;
+		$bottom = $setssql->bottom;
+		$steps = $setssql->steps;
 	}
 
 	if(isset($_POST['submit'])){ 
@@ -120,11 +122,13 @@ function companion_forms() {
 			} 
 		?>
 		<style>
-		ul.top_page_navigation li {
-			width: <?=$width;?>%;
-		}
-		ul.top_page_navigation li a {
-			width: 100%;
+		@media screen and (min-width: 901px) {
+			ul.top_page_navigation li {
+				width: <?=$width;?>%;
+			}
+			ul.top_page_navigation li a {
+				width: 100%;
+			}
 		}
 		</style>
         </ul>
@@ -144,8 +148,10 @@ function companion_forms() {
             		<input type='hidden' name='".$key."' value='".$sqlcforms->title."'>
             		".$sqlcforms->content."
             		<input type='hidden' name='break".$key."' value='----------'>
-	            </div>
-	            <ul class='tabs bottom_page_navigation'>";
+	            </div>";
+
+	        if($bottom == 0) {
+	            echo"<ul class='tabs bottom_page_navigation'>";
 					$table_name = $wpdb->prefix . 'cforms';
 
 					$sqlcforms = $wpdb->get_results("SELECT * FROM $table_name")or die(mysql_error());
@@ -178,9 +184,12 @@ function companion_forms() {
 						echo"</a>";
 
 					}
-		        echo"</ul>
-            	<p class='page_counter'>".$key."/".$keylast."</p>
-            </div>";
+		        echo"</ul>";
+		    }
+		    if($steps == 0) {
+            	echo"<p class='page_counter'>".$key."/".$keylast."</p>";
+            }
+            echo"</div>";
 		} ?>
         </div>
     </form>
