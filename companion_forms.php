@@ -46,6 +46,7 @@ function companion_forms() {
 		$CC_text = $setssql->CC_text;
 		$bottom = $setssql->bottom;
 		$steps = $setssql->steps;
+		$progress = $setssql->progress;
 	}
 
 	if(isset($_POST['submit'])){ 
@@ -143,8 +144,13 @@ function companion_forms() {
 	        foreach ( $sqlcforms as $sqlcforms ) {
 	        	$key++;
 
-            echo"<div id='".$sqlcforms->id."'>
-            	<div class='inner_tabcontent'>
+            echo"<div id='".$sqlcforms->id."'>";
+            if($progress == 0) {
+            	echo"<div class='progressbar'>
+        			<div style='width:".($width * $key)."%;' class='progress'><span style='left: ".($width * $key)."%; margin-left: -20px;'>".($width * $key)."%</span></div>
+        		</div>";
+        	}
+            echo"<div class='inner_tabcontent'>
             		<input type='hidden' name='".$key."' value='".$sqlcforms->title."'>
             		".$sqlcforms->content."
             		<input type='hidden' name='break".$key."' value='----------'>

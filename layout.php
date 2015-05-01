@@ -4,7 +4,6 @@ ul.top_page_navigation {
 	display: block;
 	width: 100%;
 	margin-left: 0px;
-	margin-bottom: 25px;
 	border: 1px solid #DDD;
 	border-radius: 10px;
 	overflow: hidden;
@@ -40,6 +39,40 @@ ul.top_page_navigation li a:hover {
 		border-right-width: 0px;
 	}	
 }
+.progressbar {
+	height: 5px;
+	padding: 3px;
+	margin-bottom: 25px;
+	background: #DDD;
+	border-radius: 50px;
+	position: relative;
+}
+.progress {
+	height: 5px;
+	background: #95C93E;
+	border-radius: 50px;
+	transition: 0.3s;
+}
+.progressbar span {
+	opacity: 0.0;
+	position: absolute;
+	top: -4px;
+	color: #FFF;
+	background: #95C93E;
+	border-radius: 100px;
+	padding: 2px 5px;
+	text-align: center;
+	transition: 0.5s;
+	font-size: 10px;
+}
+.progressbar:hover .progress {
+	height: 10px;
+	margin: -3px 0px;
+}
+.progressbar:hover span {
+	opacity: 1.0;
+}
+
 .bottom_page_navigation {
 	text-align: center;
 	position: relative;
