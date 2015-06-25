@@ -3,6 +3,14 @@ Companion Forms is a simple plugin which allows you to make forms using multi-st
 
 Contributors: DakelNL, DrScavenger, Nielsdoorn, Sjoulbak
 
+### Description
+Do you need a high amount of information from someone?
+
+Then a single form would get to long.
+
+With companion form you can easily split your form in multiple tabs.
+
+
 ## State of the project
 Requires at least: `WordPress 3.5`
 
@@ -19,11 +27,11 @@ From your WordPress dashboard
 ### Manual installation
 Download File
 
-1.Download Companion Forms.
+ * Download Companion Forms.
 
-2.Upload the 'Companion Forms' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
+ * Upload the 'Companion Forms' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
 
-3.Activate Companion Forms from your Plugins page.
+ * Activate Companion Forms from your Plugins page.
 
 ## License
 The WordPress plugin Companion Forms is licensed under the GPL v2 or later.
@@ -35,9 +43,3 @@ The WordPress plugin Companion Forms is licensed under the GPL v2 or later.
 > You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 A copy of the license can you find on: http://www.gnu.org/licenses/gpl-2.0.html
-
-== Description ==
-
-Do you need a high amount of information from someone?
-Then a single form would get to long.
-With companion form you can easily split your form in multiple tabs.
