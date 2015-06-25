@@ -1,9 +1,11 @@
 # Companion Forms
 Companion Forms is a simple plugin which allows you to make forms using multi-steps/pages.
 
+Contributors: DakelNL, DrScavenger, Nielsdoorn, Sjoulbak
+
 ## State of the project
-Contributors: DakelNL, DrScavenger, Nielsdoorn
 Requires at least: `WordPress 3.5`
+
 Tested up to: `Wordpress 4.2.1`
 
 ## Getting started
