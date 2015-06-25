@@ -3,7 +3,9 @@ Companion Forms is a simple plugin which allows you to make forms using multi-st
 
 ### Description
 Do you need a high amount of information from someone?
+
 Then a single form would get to long.
+
 With companion form you can easily split your form in multiple tabs.
 
 
@@ -16,7 +18,7 @@ Tested up to: `Wordpress 4.2.1`
 Companion Forms is a WordPress plugin.
 
 ### Automatic installation
-- Currently unavailable
+- Currently unavailable.
 
 ### Manual installation
 1. Download Companion Forms.
