@@ -20,16 +20,15 @@ Tested up to: `Wordpress 4.2.1`
 Companion Forms is a WordPress plugin.
 
 ### Automatic installation
-From your WordPress dashboard
-
 - Currently unavailable
 
 ### Manual installation
-Download File
-
 1. Download Companion Forms.
-2. Upload the 'Companion Forms' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
+2. Upload the 'Companion Forms' directory to your '/wp-content/plugins/' directory.
 3. Activate Companion Forms from your Plugins page.
+
+## Usage
+* This is w.i.p.
 
 ## License
 The WordPress plugin Companion Forms is licensed under the GPL v2 or later.
