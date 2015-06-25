@@ -27,11 +27,9 @@ From your WordPress dashboard
 ### Manual installation
 Download File
 
- * Download Companion Forms.
-
- * Upload the 'Companion Forms' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
-
- * Activate Companion Forms from your Plugins page.
+1. Download Companion Forms.
+2. Upload the 'Companion Forms' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
+3. Activate Companion Forms from your Plugins page.
 
 ## License
 The WordPress plugin Companion Forms is licensed under the GPL v2 or later.
