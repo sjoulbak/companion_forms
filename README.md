@@ -1,13 +1,9 @@
 # Companion Forms
 Companion Forms is a simple plugin which allows you to make forms using multi-steps/pages.
 
-Contributors: DakelNL, DrScavenger, Nielsdoorn, Sjoulbak
-
 ### Description
 Do you need a high amount of information from someone?
-
 Then a single form would get to long.
-
 With companion form you can easily split your form in multiple tabs.
 
 
@@ -40,3 +36,9 @@ The WordPress plugin Companion Forms is licensed under the GPL v2 or later.
 > You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 A copy of the license can you find on: http://www.gnu.org/licenses/gpl-2.0.html
+
+## Contributors
+- DakelNL
+- DrScavenger
+- Nielsdoorn
+- Sjoulbak
